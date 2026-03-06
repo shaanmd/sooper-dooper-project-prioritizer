@@ -193,7 +193,7 @@ export default function ProjectDetailPage() {
       .limit(1)
       .single()
       .then(({ data }) => {
-        if (data) setResearch(data as AIResearch);
+        if (data) setResearch(data as unknown as AIResearch);
       });
   }, [id]);
 
@@ -284,7 +284,7 @@ export default function ProjectDetailPage() {
       {/* AI Research Button */}
       <AIResearchButton
         projectId={project.id}
-        onComplete={(data) => setResearch(data as AIResearch)}
+        onComplete={(data) => setResearch(data as unknown as AIResearch)}
       />
 
       {/* Research results */}
