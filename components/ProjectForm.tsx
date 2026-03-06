@@ -9,7 +9,7 @@ export interface ProjectFormData {
   goal_alignment: "High" | "Medium" | "Low";
   learning_goals: string[];
   constraints: string;
-  already_started: boolean;
+  is_started: boolean;
   completion_percentage: number;
   what_stopped_you: string;
 }
@@ -27,7 +27,7 @@ const defaultData: ProjectFormData = {
   goal_alignment: "Medium",
   learning_goals: [],
   constraints: "",
-  already_started: false,
+  is_started: false,
   completion_percentage: 0,
   what_stopped_you: "",
 };
@@ -288,8 +288,8 @@ export default function ProjectForm({
           <div className="relative">
             <input
               type="checkbox"
-              checked={form.already_started}
-              onChange={(e) => set("already_started", e.target.checked)}
+              checked={form.is_started}
+              onChange={(e) => set("is_started", e.target.checked)}
               className="sr-only peer"
             />
             <div className="w-12 h-6 rounded-full bg-rim peer-checked:bg-amber transition-colors duration-200" />
@@ -297,7 +297,7 @@ export default function ProjectForm({
           </div>
         </label>
 
-        {form.already_started && (
+        {form.is_started && (
           <div className="space-y-5 pt-2 border-t border-rim">
             {/* Completion % */}
             <FieldWrap>

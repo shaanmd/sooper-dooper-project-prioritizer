@@ -10,7 +10,7 @@ interface Project {
   description: string;
   passion_level: number;
   goal_alignment: "High" | "Medium" | "Low";
-  already_started: boolean;
+  is_started: boolean;
   completion_percentage: number;
   created_at: string;
 }
@@ -95,7 +95,7 @@ export default function DashboardPage() {
   useEffect(() => {
     supabase
       .from("projects")
-      .select("id, name, description, passion_level, goal_alignment, already_started, completion_percentage, created_at")
+      .select("id, name, description, passion_level, goal_alignment, is_started, completion_percentage, created_at")
       .order("created_at", { ascending: false })
       .then(({ data }) => {
         setProjects(data ?? []);
@@ -166,7 +166,7 @@ export default function DashboardPage() {
                       >
                         {project.goal_alignment}
                       </span>
-                      {project.already_started && (
+                      {project.is_started && (
                         <span className="rounded-md border border-glow/30 bg-glow/10 px-2 py-0.5 text-xs font-semibold text-glow">
                           {project.completion_percentage}% done
                         </span>
