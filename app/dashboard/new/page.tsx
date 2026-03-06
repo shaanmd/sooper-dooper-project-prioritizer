@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import ProjectForm, { ProjectFormData } from "@/components/ProjectForm";
-import { supabase } from "@/lib/supabase";
 
 export default function NewProjectPage() {
   const router = useRouter();
@@ -12,9 +11,14 @@ export default function NewProjectPage() {
 
   async function handleSubmit(data: ProjectFormData) {
     setError(null);
-    const { error: dbError } = await supabase.from("projects").insert([data]);
-    if (dbError) {
-      setError(dbError.message);
+    const res = await fetch("/api/projects", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+    const json = await res.json();
+    if (!res.ok) {
+      setError(json.error ?? "Something went wrong. Please try again.");
       return;
     }
     router.push("/dashboard");
