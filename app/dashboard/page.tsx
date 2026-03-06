@@ -147,7 +147,7 @@ export default function DashboardPage() {
             return (
               <li
                 key={project.id}
-                onClick={() => router.push(`/dashboard/edit/${project.id}`)}
+                onClick={() => router.push(`/dashboard/${project.id}`)}
                 className="animate-card-in group rounded-2xl border border-rim bg-card overflow-hidden hover:border-muted/50 transition-all duration-300 hover:shadow-[0_4px_24px_rgba(0,0,0,0.4)] hover:-translate-y-0.5 cursor-pointer"
                 style={{ animationDelay: `${i * 60}ms` }}
               >
