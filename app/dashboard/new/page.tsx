@@ -1,8 +1,51 @@
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import ProjectForm, { ProjectFormData } from "@/components/ProjectForm";
+import { supabase } from "@/lib/supabase";
+
 export default function NewProjectPage() {
+  const router = useRouter();
+  const [error, setError] = useState<string | null>(null);
+
+  async function handleSubmit(data: ProjectFormData) {
+    setError(null);
+    const { error: dbError } = await supabase.from("projects").insert([data]);
+    if (dbError) {
+      setError(dbError.message);
+      return;
+    }
+    router.push("/dashboard");
+  }
+
   return (
-    <div>
-      <h1 className="text-2xl font-semibold text-gray-900">New Project</h1>
-      <p className="mt-2 text-gray-500">Add your new project here.</p>
+    <div className="max-w-2xl mx-auto">
+      <div className="mb-8">
+        <Link
+          href="/dashboard"
+          className="text-xs font-mono uppercase tracking-widest text-muted hover:text-cream transition-colors"
+        >
+          ← Back
+        </Link>
+        <h1 className="mt-3 text-3xl font-extrabold text-cream">
+          New Project
+        </h1>
+        <p className="mt-1 text-sm text-muted">
+          Capture the idea. We&apos;ll help you figure out if it&apos;s worth your time.
+        </p>
+      </div>
+
+      {error && (
+        <div className="mb-6 rounded-xl border border-rose/30 bg-rose/10 px-4 py-3 text-sm text-rose">
+          {error}
+        </div>
+      )}
+
+      <div className="rounded-2xl border border-rim bg-card p-8">
+        <ProjectForm onSubmit={handleSubmit} submitLabel="Create Project" />
+      </div>
     </div>
   );
 }
