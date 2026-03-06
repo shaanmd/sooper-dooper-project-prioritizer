@@ -6,12 +6,11 @@ export interface ProjectFormData {
   name: string;
   description: string;
   passion_level: number;
-  goal_alignment: "High" | "Medium" | "Low";
+  goal_alignment: "high" | "medium" | "low";
   learning_goals: string[];
   constraints: string;
   is_started: boolean;
   completion_percentage: number;
-  what_stopped_you: string;
 }
 
 interface ProjectFormProps {
@@ -24,12 +23,11 @@ const defaultData: ProjectFormData = {
   name: "",
   description: "",
   passion_level: 5,
-  goal_alignment: "Medium",
+  goal_alignment: "medium",
   learning_goals: [],
   constraints: "",
   is_started: false,
   completion_percentage: 0,
-  what_stopped_you: "",
 };
 
 const passionMeta = (level: number): { emoji: string; label: string; color: string } => {
@@ -42,9 +40,9 @@ const passionMeta = (level: number): { emoji: string; label: string; color: stri
 };
 
 const ALIGNMENTS: Array<{ value: ProjectFormData["goal_alignment"]; label: string; desc: string }> = [
-  { value: "High",   label: "High",   desc: "Core to my goals" },
-  { value: "Medium", label: "Medium", desc: "Relevant" },
-  { value: "Low",    label: "Low",    desc: "Nice to have" },
+  { value: "high",   label: "High",   desc: "Core to my goals" },
+  { value: "medium", label: "Medium", desc: "Relevant" },
+  { value: "low",    label: "Low",    desc: "Nice to have" },
 ];
 
 function FieldLabel({ children, optional }: { children: React.ReactNode; optional?: boolean }) {
@@ -328,17 +326,6 @@ export default function ProjectForm({
               </div>
             </FieldWrap>
 
-            {/* What stopped you */}
-            <FieldWrap>
-              <FieldLabel optional>What stopped you?</FieldLabel>
-              <textarea
-                value={form.what_stopped_you}
-                onChange={(e) => set("what_stopped_you", e.target.value)}
-                placeholder="What got in the way or caused you to pause?"
-                rows={2}
-                className={inputBase + " resize-none"}
-              />
-            </FieldWrap>
           </div>
         )}
       </div>

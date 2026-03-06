@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase";
 
 interface Project {
@@ -9,7 +10,7 @@ interface Project {
   name: string;
   description: string;
   passion_level: number;
-  goal_alignment: "High" | "Medium" | "Low";
+  goal_alignment: "high" | "medium" | "low";
   is_started: boolean;
   completion_percentage: number;
   created_at: string;
@@ -35,9 +36,9 @@ function passionEmoji(level: number): string {
 }
 
 const alignmentStyle: Record<string, string> = {
-  High:   "border-emerald-500/30 bg-emerald-500/10 text-emerald-400",
-  Medium: "border-amber/30 bg-amber/10 text-amber",
-  Low:    "border-muted/30 bg-muted/10 text-muted",
+  high:   "border-emerald-500/30 bg-emerald-500/10 text-emerald-400",
+  medium: "border-amber/30 bg-amber/10 text-amber",
+  low:    "border-muted/30 bg-muted/10 text-muted",
 };
 
 function SkeletonCard() {
@@ -88,6 +89,7 @@ function EmptyState() {
 }
 
 export default function DashboardPage() {
+  const router = useRouter();
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
   const [deletingId, setDeletingId] = useState<string | null>(null);
@@ -145,7 +147,8 @@ export default function DashboardPage() {
             return (
               <li
                 key={project.id}
-                className="animate-card-in group rounded-2xl border border-rim bg-card overflow-hidden hover:border-muted/50 transition-all duration-300 hover:shadow-[0_4px_24px_rgba(0,0,0,0.4)] hover:-translate-y-0.5"
+                onClick={() => router.push(`/dashboard/edit/${project.id}`)}
+                className="animate-card-in group rounded-2xl border border-rim bg-card overflow-hidden hover:border-muted/50 transition-all duration-300 hover:shadow-[0_4px_24px_rgba(0,0,0,0.4)] hover:-translate-y-0.5 cursor-pointer"
                 style={{ animationDelay: `${i * 60}ms` }}
               >
                 <div className="flex">
@@ -193,7 +196,10 @@ export default function DashboardPage() {
                     </div>
 
                     {/* Actions — slide in on hover */}
-                    <div className="flex gap-2 translate-y-1 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200">
+                    <div
+                      className="flex gap-2 translate-y-1 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200"
+                      onClick={(e) => e.stopPropagation()}
+                    >
                       <Link
                         href={`/dashboard/edit/${project.id}`}
                         className="rounded-lg border border-rim bg-surface px-3 py-1.5 text-xs font-semibold text-cream hover:border-amber hover:text-amber transition-all"
