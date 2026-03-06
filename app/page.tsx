@@ -6,7 +6,7 @@ export default function Home() {
 
       {/* Background grid */}
       <div
-        className="absolute inset-0 opacity-[0.04]"
+        className="absolute inset-0 opacity-[0.12]"
         style={{
           backgroundImage:
             "linear-gradient(#818CF8 1px, transparent 1px), linear-gradient(90deg, #818CF8 1px, transparent 1px)",
@@ -73,7 +73,7 @@ export default function Home() {
         </div>
 
         {/* Social proof / tagline strip */}
-        <div className="mt-16 flex items-center justify-center gap-6 text-xs font-mono text-rim">
+        <div className="mt-16 flex items-center justify-center gap-6 text-xs font-mono text-rim opacity-80">
           <span>No more decision paralysis</span>
           <span className="text-rim/40">·</span>
           <span>AI-ranked priorities</span>
