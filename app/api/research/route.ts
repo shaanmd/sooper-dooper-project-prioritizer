@@ -36,10 +36,14 @@ Return ONLY valid JSON with this structure:
     {"name": "CompetitorB", "url": "https://...", "pricing": "$49/mo"}
   ],
   "unique_selling_point": "...",
-  "revenue_estimate": {"min": 1000, "max": 5000, "suggested_pricing": 39},
-  "build_costs": {"initial": 500, "monthly": 50},
+  "revenue_min": 1000,
+  "revenue_max": 5000,
+  "suggested_pricing": 39,
+  "build_cost_initial": 500,
+  "build_cost_monthly": 50,
   "time_to_build_weeks": 8,
-  "audience": {"size_score": 7, "accessibility_score": 6},
+  "audience_size_score": 7,
+  "accessibility_score": 6,
   "skills_required": ["React", "AI API", "Stripe"],
   "assumptions": "Assumed US market, SaaS pricing model, solo developer"
 }`;

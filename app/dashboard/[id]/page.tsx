@@ -23,10 +23,14 @@ interface AIResearch {
   demand_score: number;
   competitors: { name: string; url: string; pricing: string }[];
   unique_selling_point: string;
-  revenue_estimate: { min: number; max: number; suggested_pricing: number };
-  build_costs: { initial: number; monthly: number };
+  revenue_min: number;
+  revenue_max: number;
+  suggested_pricing: number;
+  build_cost_initial: number;
+  build_cost_monthly: number;
   time_to_build_weeks: number;
-  audience: { size_score: number; accessibility_score: number };
+  audience_size_score: number;
+  accessibility_score: number;
   skills_required: string[];
   assumptions: string;
 }
@@ -76,8 +80,8 @@ function ResearchPanel({ research }: { research: AIResearch }) {
       {/* Scores row */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         <ScoreBadge label="Demand" score={research.demand_score} />
-        <ScoreBadge label="Audience Size" score={research.audience.size_score} />
-        <ScoreBadge label="Reachability" score={research.audience.accessibility_score} />
+        <ScoreBadge label="Audience Size" score={research.audience_size_score} />
+        <ScoreBadge label="Reachability" score={research.accessibility_score} />
         <div className="rounded-xl border border-glow/30 bg-glow/10 px-4 py-3 text-center">
           <div className="font-mono text-2xl font-bold text-glow">{research.time_to_build_weeks}<span className="text-sm font-normal opacity-60">w</span></div>
           <div className="text-xs font-semibold uppercase tracking-widest mt-0.5 text-glow/70">Build Time</div>
@@ -95,23 +99,23 @@ function ResearchPanel({ research }: { research: AIResearch }) {
         <div className="rounded-xl border border-rim bg-card p-5 space-y-3">
           <p className="text-xs font-bold uppercase tracking-widest text-muted">Revenue Estimate</p>
           <div className="font-mono text-cream">
-            <span className="text-2xl font-bold text-emerald-400">${research.revenue_estimate.min.toLocaleString()}</span>
+            <span className="text-2xl font-bold text-emerald-400">${research.revenue_min.toLocaleString()}</span>
             <span className="text-muted mx-1">–</span>
-            <span className="text-2xl font-bold text-emerald-400">${research.revenue_estimate.max.toLocaleString()}</span>
+            <span className="text-2xl font-bold text-emerald-400">${research.revenue_max.toLocaleString()}</span>
             <span className="text-muted text-sm ml-1">/mo</span>
           </div>
-          <p className="text-xs text-muted">Suggested price: <span className="text-cream font-semibold">${research.revenue_estimate.suggested_pricing}/mo</span></p>
+          <p className="text-xs text-muted">Suggested price: <span className="text-cream font-semibold">${research.suggested_pricing}/mo</span></p>
         </div>
         <div className="rounded-xl border border-rim bg-card p-5 space-y-3">
           <p className="text-xs font-bold uppercase tracking-widest text-muted">Build Costs</p>
           <div className="space-y-1 font-mono text-sm">
             <div className="flex justify-between">
               <span className="text-muted">Initial</span>
-              <span className="text-cream font-semibold">${research.build_costs.initial.toLocaleString()}</span>
+              <span className="text-cream font-semibold">${research.build_cost_initial.toLocaleString()}</span>
             </div>
             <div className="flex justify-between">
               <span className="text-muted">Monthly</span>
-              <span className="text-cream font-semibold">${research.build_costs.monthly.toLocaleString()}/mo</span>
+              <span className="text-cream font-semibold">${research.build_cost_monthly.toLocaleString()}/mo</span>
             </div>
           </div>
         </div>
