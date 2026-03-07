@@ -2,43 +2,32 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-ink flex flex-col items-center justify-center px-6 relative overflow-hidden">
+    <div className="min-h-screen bg-white flex flex-col items-center justify-center px-6 relative overflow-hidden">
 
       {/* Background grid */}
       <div
-        className="absolute inset-0 opacity-[0.12]"
+        className="absolute inset-0 opacity-[0.06]"
         style={{
           backgroundImage:
-            "linear-gradient(#818CF8 1px, transparent 1px), linear-gradient(90deg, #818CF8 1px, transparent 1px)",
+            "linear-gradient(#F5A623 1px, transparent 1px), linear-gradient(90deg, #F5A623 1px, transparent 1px)",
           backgroundSize: "48px 48px",
         }}
         aria-hidden
       />
 
-      {/* Glow blobs */}
-      <div
-        className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] rounded-full opacity-20 blur-[100px] pointer-events-none"
-        style={{ background: "radial-gradient(ellipse, #F5A623 0%, transparent 70%)" }}
-        aria-hidden
-      />
-      <div
-        className="absolute bottom-1/4 left-1/3 w-[400px] h-[300px] rounded-full opacity-10 blur-[80px] pointer-events-none"
-        style={{ background: "radial-gradient(ellipse, #818CF8 0%, transparent 70%)" }}
-        aria-hidden
-      />
 
-      <main className="relative z-10 text-center max-w-2xl">
+      <main className="relative z-10 text-center max-w-3xl">
 
-        {/* Eyebrow */}
-        <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted mb-6">
-          Stop spinning your wheels
+        {/* Badge */}
+        <p className="inline-block font-semibold text-base text-amber-600 mb-8 bg-amber-50 rounded-full px-6 py-2">
+          Too many ideas? Same.
         </p>
 
         {/* Title */}
-        <h1 className="text-5xl sm:text-6xl font-extrabold leading-[1.08] tracking-tight text-cream mb-2">
-          The{" "}
+        <h1 className="font-extrabold leading-tight tracking-tight text-gray-900 mb-2">
+          <span className="block text-lg font-semibold tracking-[0.15em] uppercase text-gray-400 mb-2">Meet the</span>
           <span
-            className="inline-block"
+            className="block text-6xl sm:text-7xl"
             style={{
               backgroundImage: "linear-gradient(135deg, #F5A623 0%, #F43F5E 100%)",
               WebkitBackgroundClip: "text",
@@ -48,21 +37,22 @@ export default function Home() {
           >
             Sooper Dooper
           </span>
-          <br />
-          Project Prioritizer
+          <span className="block text-7xl sm:text-8xl">Project Prioritizer</span>
         </h1>
 
         {/* Subtitle */}
-        <p className="mt-6 text-base sm:text-lg text-muted max-w-md mx-auto leading-relaxed">
-          AI-powered clarity for the side projects, ideas, and half-finished things
-          cluttering your brain.
+        <p className="mt-8 text-lg text-gray-500 max-w-lg mx-auto leading-relaxed">
+          Skip your idea speed dating and marry the right one.
+        </p>
+        <p className="mt-2 text-xl font-semibold text-amber-500 max-w-lg mx-auto leading-relaxed">
+          Our AI-powered matchmaker will see you right.
         </p>
 
         {/* CTA */}
         <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
           <Link
             href="/dashboard"
-            className="relative overflow-hidden rounded-xl bg-gradient-to-r from-amber to-rose px-8 py-4 text-base font-bold text-white tracking-wide hover:shadow-[0_0_40px_rgba(245,166,35,0.4)] hover:scale-[1.02] transition-all duration-200 active:scale-[0.99]"
+            className="relative overflow-hidden rounded-xl bg-gradient-to-r from-amber-400 to-rose-500 px-8 py-4 text-base font-bold text-white tracking-wide hover:shadow-[0_0_40px_rgba(245,166,35,0.4)] hover:scale-[1.02] transition-all duration-200 active:scale-[0.99]"
           >
             <span
               className="animate-shimmer absolute inset-0 w-1/3 bg-white/20 blur-sm"
@@ -72,13 +62,13 @@ export default function Home() {
           </Link>
         </div>
 
-        {/* Social proof / tagline strip */}
-        <div className="mt-16 flex items-center justify-center gap-6 text-xs font-mono text-rim opacity-80">
-          <span>No more decision paralysis</span>
-          <span className="text-rim/40">·</span>
-          <span>AI-ranked priorities</span>
-          <span className="text-rim/40">·</span>
-          <span>Free forever</span>
+        {/* Tagline strip */}
+        <div className="mt-8 flex items-center justify-center gap-6 text-lg font-semibold text-gray-500">
+          <span>Makers</span>
+          <span className="text-amber-300">·</span>
+          <span>Entrepreneurs</span>
+          <span className="text-amber-300">·</span>
+          <span>Creators</span>
         </div>
       </main>
     </div>
