@@ -40,10 +40,10 @@ export default function AIResearchButton({ projectId, onComplete }: AIResearchBu
         disabled={isLoading}
         className={[
           "relative w-full overflow-hidden rounded-xl px-6 py-4",
-          "bg-gradient-to-r from-glow to-amber",
-          "font-bold text-base text-ink tracking-wide",
+          "bg-gradient-to-r from-amber-400 to-rose-500",
+          "font-bold text-base text-white tracking-wide",
           "transition-all duration-200",
-          "hover:shadow-[0_0_32px_rgba(129,140,248,0.35)] hover:scale-[1.01]",
+          "hover:shadow-[0_0_32px_rgba(245,166,35,0.35)] hover:scale-[1.01]",
           "active:scale-[0.99]",
           "disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:shadow-none",
         ].join(" ")}
@@ -60,7 +60,7 @@ export default function AIResearchButton({ projectId, onComplete }: AIResearchBu
           {isLoading ? (
             <>
               <span
-                className="animate-spin-slow block w-4 h-4 rounded-full border-2 border-ink/30 border-t-ink"
+                className="animate-spin-slow block w-4 h-4 rounded-full border-2 border-white/30 border-t-white"
                 aria-hidden
               />
               Researching Market…
@@ -75,7 +75,7 @@ export default function AIResearchButton({ projectId, onComplete }: AIResearchBu
       </button>
 
       {error && (
-        <p className="rounded-xl border border-rose/30 bg-rose/10 px-4 py-3 text-sm text-rose">
+        <p className="rounded-xl border-2 border-rose-300 bg-rose-50 px-4 py-3 text-sm text-rose-600">
           {error}
         </p>
       )}

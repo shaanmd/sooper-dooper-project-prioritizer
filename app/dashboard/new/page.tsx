@@ -29,25 +29,25 @@ export default function NewProjectPage() {
       <div className="mb-8">
         <Link
           href="/dashboard"
-          className="text-xs font-mono uppercase tracking-widest text-muted hover:text-cream transition-colors"
+          className="text-xs font-mono uppercase tracking-widest text-gray-400 hover:text-gray-900 transition-colors"
         >
           ← Back
         </Link>
-        <h1 className="mt-3 text-3xl font-extrabold text-cream">
+        <h1 className="mt-3 text-3xl font-extrabold text-gray-900">
           New Project
         </h1>
-        <p className="mt-1 text-sm text-muted">
+        <p className="mt-1 text-sm text-gray-500">
           Capture the idea. We&apos;ll help you figure out if it&apos;s worth your time.
         </p>
       </div>
 
       {error && (
-        <div className="mb-6 rounded-xl border border-rose/30 bg-rose/10 px-4 py-3 text-sm text-rose">
+        <div className="mb-6 rounded-xl border-2 border-rose-300 bg-rose-50 px-4 py-3 text-sm text-rose-600">
           {error}
         </div>
       )}
 
-      <div className="rounded-2xl border border-rim bg-card p-8">
+      <div className="rounded-2xl border-2 border-gray-300 bg-white p-8">
         <ProjectForm onSubmit={handleSubmit} submitLabel="Create Project" />
       </div>
     </div>

@@ -54,18 +54,18 @@ function passionEmoji(level: number): string {
 }
 
 const alignmentStyle: Record<string, string> = {
-  high:   "border-emerald-500/30 bg-emerald-500/10 text-emerald-400",
-  medium: "border-amber/30 bg-amber/10 text-amber",
-  low:    "border-muted/30 bg-muted/10 text-muted",
+  high:   "border-emerald-300 bg-emerald-50 text-emerald-700",
+  medium: "border-amber-300 bg-amber-50 text-amber-700",
+  low:    "border-gray-300 bg-gray-100 text-gray-500",
 };
 
 function ScoreBadge({ label, score }: { label: string; score: number }) {
   const color =
-    score >= 8 ? "text-emerald-400 border-emerald-500/30 bg-emerald-500/10" :
-    score >= 5 ? "text-amber border-amber/30 bg-amber/10" :
-                 "text-muted border-rim bg-rim/10";
+    score >= 8 ? "text-emerald-700 border-emerald-300 bg-emerald-50" :
+    score >= 5 ? "text-amber-700 border-amber-300 bg-amber-50" :
+                 "text-gray-500 border-gray-300 bg-gray-100";
   return (
-    <div className={`rounded-xl border px-4 py-3 text-center ${color}`}>
+    <div className={`rounded-xl border-2 px-4 py-3 text-center ${color}`}>
       <div className="font-mono text-2xl font-bold">{score}<span className="text-sm font-normal opacity-60">/10</span></div>
       <div className="text-xs font-semibold uppercase tracking-widest mt-0.5 opacity-70">{label}</div>
     </div>
@@ -75,47 +75,47 @@ function ScoreBadge({ label, score }: { label: string; score: number }) {
 function ResearchPanel({ research }: { research: AIResearch }) {
   return (
     <div className="space-y-6 mt-8">
-      <h2 className="text-xs font-bold uppercase tracking-widest text-muted">AI Research</h2>
+      <h2 className="text-xs font-bold uppercase tracking-widest text-gray-400">AI Research</h2>
 
       {/* Scores row */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         <ScoreBadge label="Demand" score={research.demand_score} />
         <ScoreBadge label="Audience Size" score={research.audience_size_score} />
         <ScoreBadge label="Reachability" score={research.accessibility_score} />
-        <div className="rounded-xl border border-glow/30 bg-glow/10 px-4 py-3 text-center">
-          <div className="font-mono text-2xl font-bold text-glow">{research.time_to_build_weeks}<span className="text-sm font-normal opacity-60">w</span></div>
-          <div className="text-xs font-semibold uppercase tracking-widest mt-0.5 text-glow/70">Build Time</div>
+        <div className="rounded-xl border-2 border-indigo-300 bg-indigo-50 px-4 py-3 text-center">
+          <div className="font-mono text-2xl font-bold text-indigo-600">{research.time_to_build_weeks}<span className="text-sm font-normal opacity-60">w</span></div>
+          <div className="text-xs font-semibold uppercase tracking-widest mt-0.5 text-indigo-500">Build Time</div>
         </div>
       </div>
 
       {/* USP */}
-      <div className="rounded-xl border border-rim bg-card p-5">
-        <p className="text-xs font-bold uppercase tracking-widest text-muted mb-2">Unique Angle</p>
-        <p className="text-sm text-cream leading-relaxed">{research.unique_selling_point}</p>
+      <div className="rounded-xl border-2 border-gray-300 bg-white p-5">
+        <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-2">Unique Angle</p>
+        <p className="text-sm text-gray-700 leading-relaxed">{research.unique_selling_point}</p>
       </div>
 
       {/* Revenue + Costs */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div className="rounded-xl border border-rim bg-card p-5 space-y-3">
-          <p className="text-xs font-bold uppercase tracking-widest text-muted">Revenue Estimate</p>
-          <div className="font-mono text-cream">
-            <span className="text-2xl font-bold text-emerald-400">${research.revenue_min.toLocaleString()}</span>
-            <span className="text-muted mx-1">–</span>
-            <span className="text-2xl font-bold text-emerald-400">${research.revenue_max.toLocaleString()}</span>
-            <span className="text-muted text-sm ml-1">/mo</span>
+        <div className="rounded-xl border-2 border-gray-300 bg-white p-5 space-y-3">
+          <p className="text-xs font-bold uppercase tracking-widest text-gray-400">Revenue Estimate</p>
+          <div className="font-mono text-gray-900">
+            <span className="text-2xl font-bold text-emerald-600">${research.revenue_min.toLocaleString()}</span>
+            <span className="text-gray-400 mx-1">–</span>
+            <span className="text-2xl font-bold text-emerald-600">${research.revenue_max.toLocaleString()}</span>
+            <span className="text-gray-400 text-sm ml-1">/mo</span>
           </div>
-          <p className="text-xs text-muted">Suggested price: <span className="text-cream font-semibold">${research.suggested_pricing}/mo</span></p>
+          <p className="text-xs text-gray-500">Suggested price: <span className="text-gray-900 font-semibold">${research.suggested_pricing}/mo</span></p>
         </div>
-        <div className="rounded-xl border border-rim bg-card p-5 space-y-3">
-          <p className="text-xs font-bold uppercase tracking-widest text-muted">Build Costs</p>
+        <div className="rounded-xl border-2 border-gray-300 bg-white p-5 space-y-3">
+          <p className="text-xs font-bold uppercase tracking-widest text-gray-400">Build Costs</p>
           <div className="space-y-1 font-mono text-sm">
             <div className="flex justify-between">
-              <span className="text-muted">Initial</span>
-              <span className="text-cream font-semibold">${research.build_cost_initial.toLocaleString()}</span>
+              <span className="text-gray-500">Initial</span>
+              <span className="text-gray-900 font-semibold">${research.build_cost_initial.toLocaleString()}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-muted">Monthly</span>
-              <span className="text-cream font-semibold">${research.build_cost_monthly.toLocaleString()}/mo</span>
+              <span className="text-gray-500">Monthly</span>
+              <span className="text-gray-900 font-semibold">${research.build_cost_monthly.toLocaleString()}/mo</span>
             </div>
           </div>
         </div>
@@ -123,24 +123,24 @@ function ResearchPanel({ research }: { research: AIResearch }) {
 
       {/* Competitors */}
       {research.competitors?.length > 0 && (
-        <div className="rounded-xl border border-rim bg-card p-5 space-y-3">
-          <p className="text-xs font-bold uppercase tracking-widest text-muted">Competitors</p>
-          <ul className="divide-y divide-rim">
+        <div className="rounded-xl border-2 border-gray-300 bg-white p-5 space-y-3">
+          <p className="text-xs font-bold uppercase tracking-widest text-gray-400">Competitors</p>
+          <ul className="divide-y divide-gray-200">
             {research.competitors.map((c) => (
               <li key={c.name} className="flex items-center justify-between py-2.5 gap-3">
                 <div className="min-w-0">
-                  <span className="text-sm font-semibold text-cream">{c.name}</span>
+                  <span className="text-sm font-semibold text-gray-900">{c.name}</span>
                   <a
                     href={c.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="ml-2 text-xs text-muted hover:text-glow transition-colors truncate"
+                    className="ml-2 text-xs text-gray-400 hover:text-indigo-500 transition-colors truncate"
                     onClick={(e) => e.stopPropagation()}
                   >
                     {c.url}
                   </a>
                 </div>
-                <span className="flex-none text-xs font-mono text-amber">{c.pricing}</span>
+                <span className="flex-none text-xs font-mono text-amber-600">{c.pricing}</span>
               </li>
             ))}
           </ul>
@@ -149,11 +149,11 @@ function ResearchPanel({ research }: { research: AIResearch }) {
 
       {/* Skills */}
       {research.skills_required?.length > 0 && (
-        <div className="rounded-xl border border-rim bg-card p-5 space-y-3">
-          <p className="text-xs font-bold uppercase tracking-widest text-muted">Skills Required</p>
+        <div className="rounded-xl border-2 border-gray-300 bg-white p-5 space-y-3">
+          <p className="text-xs font-bold uppercase tracking-widest text-gray-400">Skills Required</p>
           <div className="flex flex-wrap gap-2">
             {research.skills_required.map((s) => (
-              <span key={s} className="rounded-lg border border-glow/30 bg-glow/10 px-3 py-1.5 text-sm font-medium text-glow">
+              <span key={s} className="rounded-lg border border-indigo-300 bg-indigo-50 px-3 py-1.5 text-sm font-medium text-indigo-600">
                 {s}
               </span>
             ))}
@@ -162,9 +162,9 @@ function ResearchPanel({ research }: { research: AIResearch }) {
       )}
 
       {/* Assumptions */}
-      <div className="rounded-xl border border-rim bg-card p-5">
-        <p className="text-xs font-bold uppercase tracking-widest text-muted mb-2">Assumptions</p>
-        <p className="text-xs text-muted leading-relaxed">{research.assumptions}</p>
+      <div className="rounded-xl border-2 border-gray-300 bg-white p-5">
+        <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-2">Assumptions</p>
+        <p className="text-xs text-gray-500 leading-relaxed">{research.assumptions}</p>
       </div>
     </div>
   );
@@ -177,7 +177,6 @@ export default function ProjectDetailPage() {
   const [loadError, setLoadError] = useState<string | null>(null);
 
   useEffect(() => {
-    // Fetch project
     supabase
       .from("projects")
       .select("*")
@@ -188,7 +187,6 @@ export default function ProjectDetailPage() {
         else setProject(data);
       });
 
-    // Fetch existing research if any
     supabase
       .from("ai_research")
       .select("*")
@@ -204,7 +202,7 @@ export default function ProjectDetailPage() {
   if (loadError) {
     return (
       <div className="max-w-2xl mx-auto">
-        <p className="rounded-xl border border-rose/30 bg-rose/10 px-4 py-3 text-sm text-rose">{loadError}</p>
+        <p className="rounded-xl border-2 border-rose-300 bg-rose-50 px-4 py-3 text-sm text-rose-600">{loadError}</p>
       </div>
     );
   }
@@ -212,9 +210,9 @@ export default function ProjectDetailPage() {
   if (!project) {
     return (
       <div className="max-w-2xl mx-auto space-y-4 animate-pulse">
-        <div className="h-8 bg-rim rounded-lg w-1/3" />
-        <div className="h-4 bg-rim rounded w-2/3" />
-        <div className="h-32 bg-rim rounded-2xl" />
+        <div className="h-8 bg-gray-200 rounded-lg w-1/3" />
+        <div className="h-4 bg-gray-200 rounded w-2/3" />
+        <div className="h-32 bg-gray-200 rounded-2xl" />
       </div>
     );
   }
@@ -227,40 +225,40 @@ export default function ProjectDetailPage() {
       <div className="flex items-center justify-between mb-8">
         <Link
           href="/dashboard"
-          className="text-xs font-mono uppercase tracking-widest text-muted hover:text-cream transition-colors"
+          className="text-xs font-mono uppercase tracking-widest text-gray-400 hover:text-gray-900 transition-colors"
         >
           ← Back
         </Link>
         <Link
           href={`/dashboard/edit/${project.id}`}
-          className="rounded-lg border border-rim bg-surface px-3 py-1.5 text-xs font-semibold text-cream hover:border-amber hover:text-amber transition-all"
+          className="rounded-lg border-2 border-gray-300 bg-gray-50 px-3 py-1.5 text-xs font-semibold text-gray-700 hover:border-amber-400 hover:text-amber-600 transition-all"
         >
           Edit
         </Link>
       </div>
 
       {/* Project header card */}
-      <div className="rounded-2xl border border-rim bg-card overflow-hidden mb-8">
+      <div className="rounded-2xl border-2 border-gray-300 bg-white overflow-hidden mb-8">
         <div className="flex">
           <div className="w-1.5 self-stretch flex-none" style={{ backgroundColor: color }} />
           <div className="flex-1 p-6">
             <div className="flex flex-wrap items-center gap-2 mb-3">
-              <h1 className="text-2xl font-extrabold text-cream">{project.name}</h1>
+              <h1 className="text-2xl font-extrabold text-gray-900">{project.name}</h1>
               <span className={`rounded-md border px-2 py-0.5 text-xs font-semibold ${alignmentStyle[project.goal_alignment]}`}>
                 {project.goal_alignment}
               </span>
               {project.is_started && (
-                <span className="rounded-md border border-glow/30 bg-glow/10 px-2 py-0.5 text-xs font-semibold text-glow">
+                <span className="rounded-md border border-indigo-300 bg-indigo-50 px-2 py-0.5 text-xs font-semibold text-indigo-600">
                   {project.completion_percentage}% done
                 </span>
               )}
             </div>
-            <p className="text-sm text-muted leading-relaxed mb-4">{project.description}</p>
+            <p className="text-sm text-gray-500 leading-relaxed mb-4">{project.description}</p>
 
             {project.learning_goals?.length > 0 && (
               <div className="flex flex-wrap gap-2 mb-4">
                 {project.learning_goals.map((g) => (
-                  <span key={g} className="rounded-lg border border-glow/30 bg-glow/10 px-2.5 py-1 text-xs font-medium text-glow">
+                  <span key={g} className="rounded-lg border border-indigo-300 bg-indigo-50 px-2.5 py-1 text-xs font-medium text-indigo-600">
                     {g}
                   </span>
                 ))}
@@ -268,8 +266,8 @@ export default function ProjectDetailPage() {
             )}
 
             {project.constraints && (
-              <p className="text-xs text-muted">
-                <span className="font-semibold text-cream">Constraints: </span>{project.constraints}
+              <p className="text-xs text-gray-500">
+                <span className="font-semibold text-gray-700">Constraints: </span>{project.constraints}
               </p>
             )}
           </div>
@@ -278,7 +276,7 @@ export default function ProjectDetailPage() {
           <div className="flex-none flex flex-col items-end justify-center p-5">
             <div className="font-mono text-3xl font-bold leading-none" style={{ color }}>
               {project.passion_level}
-              <span className="text-muted text-sm font-normal">/10</span>
+              <span className="text-gray-400 text-sm font-normal">/10</span>
             </div>
             <div className="text-2xl mt-1">{passionEmoji(project.passion_level)}</div>
           </div>

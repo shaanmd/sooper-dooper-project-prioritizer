@@ -53,7 +53,6 @@ function passionColor(level: number): string {
   return "#F43F5E";
 }
 
-const PASSION_LEVELS = [1, 3, 5, 7, 9, 10];
 
 function computeMetrics(
   raw: RawProject[],
@@ -109,6 +108,7 @@ function computeMetrics(
 export default function ComparePage() {
   const [rawProjects, setRawProjects] = useState<RawProject[]>([]);
   const [loading, setLoading] = useState(true);
+  const [showControls, setShowControls] = useState(false);
 
   const [profitSlider, setProfitSlider] = useState(DEFAULTS.profitSlider);
   const [riskTolerance, setRiskTolerance] = useState<RiskTolerance>(DEFAULTS.riskTolerance);
@@ -207,17 +207,14 @@ export default function ComparePage() {
     <div>
       {/* Header */}
       <div className="mb-8">
-        <p className="text-xs font-mono uppercase tracking-widest text-gray-400 mb-1">Visualize</p>
         <h1 className="text-3xl font-extrabold text-gray-900">Project Prioritizer</h1>
-        <p className="mt-1 text-sm text-gray-500">
-          Top-left bubbles are your winners — high value, low effort.
-        </p>
+        <p className="text-xs font-mono uppercase tracking-widest text-gray-400 mb-1">Visualize Bubble Chart</p>
       </div>
 
       {loading ? (
-        <div className="h-[460px] rounded-2xl border border-gray-200 bg-gray-100 animate-pulse" />
+        <div className="h-[460px] rounded-2xl border-2 border-gray-300 bg-gray-100 animate-pulse" />
       ) : !hasAnyResearch ? (
-        <div className="flex flex-col items-center justify-center py-24 rounded-2xl border border-gray-200 bg-white text-center shadow-sm">
+        <div className="flex flex-col items-center justify-center py-24 rounded-2xl border-2 border-gray-300 bg-white text-center shadow-sm">
           <div className="text-4xl mb-4">🔍</div>
           <p className="text-gray-900 font-semibold mb-1">No analysis data yet</p>
           <p className="text-gray-500 text-sm max-w-xs leading-relaxed mb-8">
@@ -232,144 +229,163 @@ export default function ComparePage() {
         </div>
       ) : (
         <>
-          <BubbleChart data={bubbleData} winnerId={winnerId} />
+         
 
-          {/* Legend */}
-          <div className="mt-3 flex flex-wrap gap-x-6 gap-y-1 text-xs text-gray-400 justify-end pr-1">
-            <span>Bubble size = estimated year-1 profit</span>
-            <span className="flex items-center gap-1.5">
-              Color = passion level
-              <span className="flex gap-0.5 items-center">
-                {PASSION_LEVELS.map((l) => (
-                  <span
-                    key={l}
-                    className="w-2.5 h-2.5 rounded-full inline-block ring-1 ring-black/5"
-                    style={{ backgroundColor: passionColor(l) }}
+          {/* Collapsible Controls */}
+          <button
+            onClick={() => setShowControls(!showControls)}
+            className="w-full p-4 bg-amber-50 border-2 border-amber-300 rounded-xl font-semibold text-gray-800 hover:bg-amber-100 transition-colors mb-4 flex items-center justify-between"
+          >
+            <span>{showControls ? "▲ Hide" : "▼ Show"} Ranking Controls</span>
+            <span className="text-sm text-amber-700">Adjust weights to recalculate rankings</span>
+          </button>
+
+          {showControls && (
+            <div className="mb-6 p-6 bg-gray-50 rounded-2xl border-2 border-gray-300 space-y-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h2 className="text-xs font-bold uppercase tracking-widest text-gray-400">
+                    Adjust Priorities
+                  </h2>
+                  <p className="text-[11px] text-gray-300 mt-0.5">
+                    Rankings and chart update in real-time
+                  </p>
+                </div>
+                <button
+                  onClick={resetDefaults}
+                  disabled={isDefault}
+                  className={[
+                    "text-xs font-semibold border-2 rounded-lg px-3 py-1.5 transition-all",
+                    isDefault
+                      ? "text-gray-300 border-gray-200 cursor-not-allowed"
+                      : "text-gray-500 hover:text-amber-600 border-gray-300 hover:border-amber-300 cursor-pointer",
+                  ].join(" ")}
+                >
+                  Reset to Defaults
+                </button>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {/* Profit vs Learning */}
+                <div className="space-y-2">
+                  <div className="flex justify-between items-baseline">
+                    <span className="text-xs font-semibold text-gray-700">Profit vs Learning</span>
+                    <span className="text-xs font-mono font-bold text-amber-500">{profitSlider}%</span>
+                  </div>
+                  <input
+                    type="range"
+                    min={0}
+                    max={100}
+                    value={profitSlider}
+                    onChange={(e) => setProfitSlider(Number(e.target.value))}
+                    className="w-full cursor-pointer"
+                    style={{ accentColor: "#F5A623" }}
                   />
-                ))}
-              </span>
-            </span>
+                  <div className="flex justify-between text-[10px] text-gray-300 font-mono">
+                    <span>Only Learning</span>
+                    <span>Only Profit</span>
+                  </div>
+                  <p className="text-[10px] text-gray-400 leading-relaxed pt-0.5">
+                    {profitSlider < 30
+                      ? "Learning goals are driving your value score"
+                      : profitSlider > 70
+                        ? "Revenue potential dominates the score"
+                        : "Balancing profit potential and learning goals"}
+                  </p>
+                </div>
+
+                {/* Risk Tolerance */}
+                <div className="space-y-2">
+                  <span className="text-xs font-semibold text-gray-700 block">Risk Tolerance</span>
+                  <div className="flex gap-2">
+                    {(["Low", "Medium", "High"] as RiskTolerance[]).map((level) => (
+                      <button
+                        key={level}
+                        onClick={() => setRiskTolerance(level)}
+                        className={[
+                          "flex-1 rounded-lg border-2 py-2 text-xs font-semibold transition-all",
+                          riskTolerance === level
+                            ? "border-amber-300 bg-amber-50 text-amber-600"
+                            : "border-gray-300 bg-gray-50 text-gray-500 hover:border-gray-400 hover:text-gray-900",
+                        ].join(" ")}
+                      >
+                        {level}
+                      </button>
+                    ))}
+                  </div>
+                  <p className="text-[10px] text-gray-400 leading-relaxed pt-0.5">
+                    {riskTolerance === "Low" && "High-effort projects are penalized heavily"}
+                    {riskTolerance === "Medium" && "Effort is weighted neutrally on rankings"}
+                    {riskTolerance === "High" && "Big efforts for big rewards — go for it"}
+                  </p>
+                </div>
+
+                {/* Passion Threshold */}
+                <div className="space-y-2">
+                  <div className="flex justify-between items-baseline">
+                    <span className="text-xs font-semibold text-gray-700">Passion Threshold</span>
+                    <span className="text-xs font-mono font-bold text-amber-500">{passionThreshold}/10</span>
+                  </div>
+                  <input
+                    type="range"
+                    min={1}
+                    max={10}
+                    value={passionThreshold}
+                    onChange={(e) => setPassionThreshold(Number(e.target.value))}
+                    className="w-full cursor-pointer"
+                    style={{ accentColor: "#F5A623" }}
+                  />
+                  <div className="flex justify-between text-[10px] text-gray-300 font-mono">
+                    <span>Show all</span>
+                    <span>Max only</span>
+                  </div>
+                  <p className="text-[10px] text-gray-400 leading-relaxed pt-0.5">
+                    {passionThreshold <= 3
+                      ? "Showing all projects regardless of passion"
+                      : passionThreshold <= 6
+                        ? "Only projects you care about moderately or more"
+                        : "Only your most exciting projects make the cut"}
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+           {/* Chart Key - compact, right-aligned */}
+           <div className="flex justify-end mb-3">
+            <div className="inline-flex items-center gap-6 px-4 py-2 bg-gray-50 rounded-lg border-2 border-gray-300 text-xs text-gray-600">
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 rounded-full bg-gradient-to-br from-gray-400 to-gray-600" />
+                <span>Size = Profit</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="flex gap-0.5">
+                  <div className="w-2 h-2 rounded-full bg-slate-400" />
+                  <div className="w-2 h-2 rounded-full bg-indigo-400" />
+                  <div className="w-2 h-2 rounded-full bg-amber-400" />
+                  <div className="w-2 h-2 rounded-full bg-rose-400" />
+                </div>
+                <span>Color = Passion</span>
+              </div>
+            </div>
           </div>
 
-          {/* ── Controls ── */}
-          <div className="mt-6 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-            <div className="flex items-center justify-between mb-6">
-              <div>
-                <h2 className="text-xs font-bold uppercase tracking-widest text-gray-400">
-                  Adjust Priorities
-                </h2>
-                <p className="text-[11px] text-gray-300 mt-0.5">
-                  Rankings and chart update in real-time
-                </p>
-              </div>
-              <button
-                onClick={resetDefaults}
-                disabled={isDefault}
-                className={[
-                  "text-xs font-semibold border rounded-lg px-3 py-1.5 transition-all",
-                  isDefault
-                    ? "text-gray-300 border-gray-100 cursor-not-allowed"
-                    : "text-gray-500 hover:text-amber-600 border-gray-200 hover:border-amber-300 cursor-pointer",
-                ].join(" ")}
-              >
-                Reset to Defaults
-              </button>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {/* Profit vs Learning */}
-              <div className="space-y-2">
-                <div className="flex justify-between items-baseline">
-                  <span className="text-xs font-semibold text-gray-700">Profit vs Learning</span>
-                  <span className="text-xs font-mono font-bold text-amber-500">{profitSlider}%</span>
-                </div>
-                <input
-                  type="range"
-                  min={0}
-                  max={100}
-                  value={profitSlider}
-                  onChange={(e) => setProfitSlider(Number(e.target.value))}
-                  className="w-full cursor-pointer"
-                  style={{ accentColor: "#F5A623" }}
-                />
-                <div className="flex justify-between text-[10px] text-gray-300 font-mono">
-                  <span>Only Learning</span>
-                  <span>Only Profit</span>
-                </div>
-                <p className="text-[10px] text-gray-400 leading-relaxed pt-0.5">
-                  {profitSlider < 30
-                    ? "Learning goals are driving your value score"
-                    : profitSlider > 70
-                      ? "Revenue potential dominates the score"
-                      : "Balancing profit potential and learning goals"}
-                </p>
-              </div>
-
-              {/* Risk Tolerance */}
-              <div className="space-y-2">
-                <span className="text-xs font-semibold text-gray-700 block">Risk Tolerance</span>
-                <div className="flex gap-2">
-                  {(["Low", "Medium", "High"] as RiskTolerance[]).map((level) => (
-                    <button
-                      key={level}
-                      onClick={() => setRiskTolerance(level)}
-                      className={[
-                        "flex-1 rounded-lg border py-2 text-xs font-semibold transition-all",
-                        riskTolerance === level
-                          ? "border-amber-300 bg-amber-50 text-amber-600"
-                          : "border-gray-200 bg-gray-50 text-gray-500 hover:border-gray-300 hover:text-gray-900",
-                      ].join(" ")}
-                    >
-                      {level}
-                    </button>
-                  ))}
-                </div>
-                <p className="text-[10px] text-gray-400 leading-relaxed pt-0.5">
-                  {riskTolerance === "Low" && "High-effort projects are penalized heavily"}
-                  {riskTolerance === "Medium" && "Effort is weighted neutrally on rankings"}
-                  {riskTolerance === "High" && "Big efforts for big rewards — go for it"}
-                </p>
-              </div>
-
-              {/* Passion Threshold */}
-              <div className="space-y-2">
-                <div className="flex justify-between items-baseline">
-                  <span className="text-xs font-semibold text-gray-700">Passion Threshold</span>
-                  <span className="text-xs font-mono font-bold text-amber-500">{passionThreshold}/10</span>
-                </div>
-                <input
-                  type="range"
-                  min={1}
-                  max={10}
-                  value={passionThreshold}
-                  onChange={(e) => setPassionThreshold(Number(e.target.value))}
-                  className="w-full cursor-pointer"
-                  style={{ accentColor: "#F5A623" }}
-                />
-                <div className="flex justify-between text-[10px] text-gray-300 font-mono">
-                  <span>Show all</span>
-                  <span>Max only</span>
-                </div>
-                <p className="text-[10px] text-gray-400 leading-relaxed pt-0.5">
-                  {passionThreshold <= 3
-                    ? "Showing all projects regardless of passion"
-                    : passionThreshold <= 6
-                      ? "Only projects you care about moderately or more"
-                      : "Only your most exciting projects make the cut"}
-                </p>
-              </div>
+          {/* Bubble Chart - mobile-responsive */}
+          <div className="w-full overflow-x-auto">
+            <div className="min-w-[600px]">
+              <BubbleChart data={bubbleData} winnerId={winnerId} />
             </div>
           </div>
 
           {/* ── Rankings ── */}
           <div className="mt-12">
-            <div className="flex items-center justify-between mb-5">
+            <div className="flex items-center justify-between mb-1">
               <h2 className="text-xs font-bold uppercase tracking-widest text-gray-400">Rankings</h2>
-              <span className="text-[10px] text-gray-300 font-mono">Checkbox = show in chart</span>
             </div>
 
+            <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 text-right mb-1">Checkbox = show in chart</p>
+
             {ranked.length === 0 ? (
-              <div className="rounded-xl border border-gray-100 bg-gray-50 px-5 py-10 text-center">
+              <div className="rounded-xl border-2 border-gray-300 bg-gray-50 px-5 py-10 text-center">
                 <p className="text-gray-500 text-sm mb-3">
                   No analysed projects match your passion threshold of {passionThreshold}/10.
                 </p>
@@ -382,101 +398,72 @@ export default function ComparePage() {
               </div>
             ) : (
               <ol className="space-y-2">
-                {ranked.map(({ project, metrics }, i) => (
-                  <li key={project.id} className="flex items-center gap-3">
-                    {/* Chart visibility toggle */}
-                    <button
-                      onClick={() => toggleVisibility(project.id)}
-                      title={hiddenIds.has(project.id) ? "Show in chart" : "Hide from chart"}
-                      className={[
-                        "flex-none w-5 h-5 rounded border-2 flex items-center justify-center transition-all duration-150",
-                        hiddenIds.has(project.id)
-                          ? "border-gray-300 bg-white"
-                          : "border-amber-400 bg-amber-400",
-                      ].join(" ")}
-                    >
-                      {!hiddenIds.has(project.id) && (
-                        <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
-                          <path d="M1 4l2.5 2.5L9 1" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                      )}
-                    </button>
-
-                    <Link
-                      href={`/dashboard/${project.id}`}
-                      className={[
-                        "group flex-1 flex items-center gap-4 rounded-xl border px-5 py-4 hover:-translate-y-0.5 transition-all duration-200",
-                        hiddenIds.has(project.id) ? "opacity-40" : "",
-                        i === 0
-                          ? "border-amber-200 bg-amber-50/40 hover:border-amber-300 hover:shadow-[0_4px_24px_rgba(245,166,35,0.12)]"
-                          : "border-gray-200 bg-white hover:border-gray-300 hover:shadow-sm",
-                      ].join(" ")}
-                    >
-                      {/* Rank */}
-                      <span
+                {ranked.map(({ project, metrics }, i) => {
+                  const rank = i + 1;
+                  const isVisible = !hiddenIds.has(project.id);
+                  return (
+                    <li key={project.id}>
+                      <div
                         className={[
-                          "font-mono text-xl font-black w-7 text-right flex-none tabular-nums",
-                          i === 0
-                            ? "text-amber-500"
-                            : i === 1
-                              ? "text-gray-400"
-                              : i === 2
-                                ? "text-amber-300"
-                                : "text-gray-200",
+                          "flex items-center justify-between p-4 bg-white rounded-xl border-2 border-gray-300 hover:border-amber-400 transition-colors",
+                          !isVisible ? "opacity-50" : "",
                         ].join(" ")}
                       >
-                        {i + 1}
-                      </span>
-
-                      {/* Passion dot */}
-                      <span
-                        className="w-3 h-3 rounded-full flex-none ring-1 ring-black/5"
-                        style={{ backgroundColor: passionColor(project.passion_level) }}
-                      />
-
-                      {/* Name + winner badge */}
-                      <span className="flex-1 min-w-0 font-semibold text-gray-900 group-hover:text-amber-600 transition-colors flex items-center gap-2 truncate">
-                        <span className="truncate">{project.name}</span>
-                        {i === 0 && (
-                          <span className="flex-none rounded-md border border-amber-200 bg-amber-50 px-2 py-0.5 text-[10px] font-bold text-amber-600 tracking-wide whitespace-nowrap">
-                            🏆 Winner
-                          </span>
-                        )}
-                      </span>
-
-                      {/* Metrics */}
-                      <div className="flex gap-4 flex-none text-xs font-mono">
-                        <div className="text-right hidden sm:block">
-                          <div className="text-amber-500 font-bold">{metrics!.value_score.toFixed(1)}</div>
-                          <div className="text-gray-300 text-[10px]">value</div>
-                        </div>
-                        <div className="text-right hidden sm:block">
-                          <div className="text-indigo-500 font-bold">{metrics!.effort_score.toFixed(1)}</div>
-                          <div className="text-gray-300 text-[10px]">effort</div>
-                        </div>
-                        <div className="text-right hidden md:block">
-                          <div
-                            className={`font-bold ${
-                              metrics!.net_profit >= 0 ? "text-emerald-600" : "text-rose-500"
-                            }`}
-                          >
-                            {metrics!.net_profit >= 0 ? "+" : "−"}$
-                            {Math.abs(metrics!.net_profit).toLocaleString()}
+                        {/* LEFT SIDE: Project info */}
+                        <Link
+                          href={`/dashboard/${project.id}`}
+                          className="flex items-center gap-4 flex-1 min-w-0 group"
+                        >
+                          <div className="text-2xl font-black flex-none">
+                            {rank === 1 ? "🏆" : (
+                              <span className={[
+                                "font-mono",
+                                rank === 2 ? "text-gray-400" : rank === 3 ? "text-amber-300" : "text-gray-200",
+                              ].join(" ")}>
+                                #{rank}
+                              </span>
+                            )}
                           </div>
-                          <div className="text-gray-300 text-[10px]">est. profit</div>
-                        </div>
-                        <div className="text-right">
-                          <div className="text-gray-700 font-bold">{metrics!.rank_score.toFixed(1)}</div>
-                          <div className="text-gray-300 text-[10px]">score</div>
-                        </div>
-                      </div>
+                          <span
+                            className="w-3 h-3 rounded-full flex-none ring-1 ring-black/5"
+                            style={{ backgroundColor: passionColor(project.passion_level) }}
+                          />
+                          <div className="flex-1 min-w-0">
+                            <h3 className="font-bold text-gray-900 group-hover:text-amber-600 transition-colors truncate">
+                              {project.name}
+                              {rank === 1 && (
+                                <span className="ml-2 rounded-md border border-amber-200 bg-amber-50 px-2 py-0.5 text-[10px] font-bold text-amber-600 tracking-wide whitespace-nowrap">
+                                  Winner
+                                </span>
+                              )}
+                            </h3>
+                            <div className="text-sm text-gray-600 flex flex-wrap gap-4 mt-1">
+                              <span>Value: {metrics!.value_score.toFixed(1)}</span>
+                              <span>Effort: {metrics!.effort_score.toFixed(1)}</span>
+                              <span
+                                className={metrics!.net_profit >= 0 ? "text-emerald-600" : "text-rose-500"}
+                              >
+                                Profit: {metrics!.net_profit >= 0 ? "+" : "−"}$
+                                {Math.abs(metrics!.net_profit).toLocaleString()}
+                              </span>
+                              <span className="hidden md:inline font-semibold text-gray-700">
+                                Score: {metrics!.rank_score.toFixed(1)}
+                              </span>
+                            </div>
+                          </div>
+                        </Link>
 
-                      <span className="text-gray-200 group-hover:text-gray-400 transition-colors flex-none">
-                        →
-                      </span>
-                    </Link>
-                  </li>
-                ))}
+                        {/* RIGHT SIDE: Checkbox */}
+                        <input
+                          type="checkbox"
+                          checked={isVisible}
+                          onChange={() => toggleVisibility(project.id)}
+                          className="w-6 h-6 rounded border-2 border-gray-400 text-amber-500 focus:ring-amber-500 cursor-pointer flex-shrink-0 ml-4"
+                        />
+                      </div>
+                    </li>
+                  );
+                })}
               </ol>
             )}
 
@@ -491,7 +478,7 @@ export default function ComparePage() {
                     <li key={project.id}>
                       <Link
                         href={`/dashboard/${project.id}`}
-                        className="flex items-center gap-4 rounded-xl border border-gray-100 bg-gray-50 px-5 py-3 opacity-60 hover:opacity-90 transition-opacity"
+                        className="flex items-center gap-4 rounded-xl border-2 border-gray-300 bg-gray-50 px-5 py-3 opacity-60 hover:opacity-90 transition-opacity"
                       >
                         <span className="w-3 h-3 rounded-full flex-none bg-gray-300" />
                         <span className="flex-1 text-gray-400 font-medium truncate">{project.name}</span>

@@ -42,31 +42,31 @@ export default function EditProjectPage() {
       <div className="mb-8">
         <Link
           href="/dashboard"
-          className="text-xs font-mono uppercase tracking-widest text-muted hover:text-cream transition-colors"
+          className="text-xs font-mono uppercase tracking-widest text-gray-400 hover:text-gray-900 transition-colors"
         >
           ← Back
         </Link>
-        <h1 className="mt-3 text-3xl font-extrabold text-cream">Edit Project</h1>
-        <p className="mt-1 text-sm text-muted">Update the details for this project.</p>
+        <h1 className="mt-3 text-3xl font-extrabold text-gray-900">Edit Project</h1>
+        <p className="mt-1 text-sm text-gray-500">Update the details for this project.</p>
       </div>
 
       {loadError && (
-        <div className="mb-6 rounded-xl border border-rose/30 bg-rose/10 px-4 py-3 text-sm text-rose">
+        <div className="mb-6 rounded-xl border-2 border-rose-300 bg-rose-50 px-4 py-3 text-sm text-rose-600">
           {loadError}
         </div>
       )}
 
       {submitError && (
-        <div className="mb-6 rounded-xl border border-rose/30 bg-rose/10 px-4 py-3 text-sm text-rose">
+        <div className="mb-6 rounded-xl border-2 border-rose-300 bg-rose-50 px-4 py-3 text-sm text-rose-600">
           {submitError}
         </div>
       )}
 
-      <div className="rounded-2xl border border-rim bg-card p-8">
+      <div className="rounded-2xl border-2 border-gray-300 bg-white p-8">
         {initialData ? (
           <ProjectForm onSubmit={handleSubmit} initialData={initialData} submitLabel="Save Changes" />
         ) : !loadError ? (
-          <p className="text-muted text-sm">Loading…</p>
+          <p className="text-gray-500 text-sm">Loading…</p>
         ) : null}
       </div>
     </div>

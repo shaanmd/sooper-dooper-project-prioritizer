@@ -2,57 +2,57 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-white flex flex-col items-center justify-center px-6 relative overflow-hidden">
-
-      {/* Background grid */}
-      <div
-        className="absolute inset-0 opacity-[0.06]"
-        style={{
-          backgroundImage:
-            "linear-gradient(#F5A623 1px, transparent 1px), linear-gradient(90deg, #F5A623 1px, transparent 1px)",
-          backgroundSize: "48px 48px",
-        }}
-        aria-hidden
-      />
-
-
-      <main className="relative z-10 text-center max-w-3xl">
-
-        {/* Badge */}
-        <p className="inline-block font-semibold text-base text-amber-600 mb-8 bg-amber-50 rounded-full px-6 py-2">
-          Too many ideas? Same.
-        </p>
-
-        {/* Title */}
-        <h1 className="font-extrabold leading-tight tracking-tight text-gray-900 mb-2">
-          <span className="block text-lg font-semibold tracking-[0.15em] uppercase text-gray-400 mb-2">Meet the</span>
-          <span
-            className="block text-6xl sm:text-7xl"
-            style={{
-              backgroundImage: "linear-gradient(135deg, #F5A623 0%, #F43F5E 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-            }}
-          >
-            Sooper Dooper
+    <div
+      className="min-h-screen bg-[#FAFAF9] flex flex-col"
+      style={{
+        backgroundImage:
+          "linear-gradient(rgba(245,166,35,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(245,166,35,0.03) 1px, transparent 1px)",
+        backgroundSize: "40px 40px",
+      }}
+    >
+      {/* Top Badge */}
+      <div className="flex justify-center pt-6 pb-0 mb-0">
+        <div className="inline-flex items-center gap-2 px-6 py-3 bg-amber-50 border-2 border-amber-300 rounded-full shadow-sm">
+          <span className="text-base md:text-lg font-bold text-amber-700">
+            Too many ideas? Same.
           </span>
-          <span className="block text-7xl sm:text-8xl">Project Prioritizer</span>
-        </h1>
+        </div>
+      </div>
 
-        {/* Subtitle */}
-        <p className="mt-8 text-lg text-gray-500 max-w-lg mx-auto leading-relaxed">
-          Skip your idea speed dating and marry the right one.
-        </p>
-        <p className="mt-2 text-xl font-semibold text-amber-500 max-w-lg mx-auto leading-relaxed">
-          Our AI-powered matchmaker will see you right.
-        </p>
+      {/* Hero */}
+      <main className="flex-1 flex items-center justify-center px-6 py-16 md:py-20 text-center">
+        <div className="max-w-4xl mx-auto">
+          <p className="text-sm uppercase tracking-widest text-gray-400 mb-3 -mt-4">
+            MEET THE
+          </p>
 
-        {/* CTA */}
-        <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <h1 className="font-extrabold leading-tight tracking-tight mb-6">
+            <span
+              className="block text-5xl sm:text-6xl lg:text-7xl"
+              style={{
+                backgroundImage: "linear-gradient(135deg, #F5A623 0%, #F97316 50%, #F43F5E 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}
+            >
+              Sooper Dooper
+            </span>
+            <span className="block text-5xl sm:text-6xl lg:text-7xl text-gray-900">Project Prioritizer</span>
+          </h1>
+
+          {/* Subtitles */}
+          <p className="text-xl md:text-2xl text-gray-600 mb-3 max-w-2xl mx-auto leading-relaxed">
+            Skip idea speed dating and marry the right one.
+          </p>
+          <p className="text-lg text-amber-600 font-semibold mb-8">
+            Our AI-powered matchmaker will see you right.
+          </p>
+
+          {/* CTA */}
           <Link
             href="/dashboard"
-            className="relative overflow-hidden rounded-xl bg-gradient-to-r from-amber-400 to-rose-500 px-8 py-4 text-base font-bold text-white tracking-wide hover:shadow-[0_0_40px_rgba(245,166,35,0.4)] hover:scale-[1.02] transition-all duration-200 active:scale-[0.99]"
+            className="relative overflow-hidden inline-block bg-gradient-to-r from-amber-400 via-orange-500 to-rose-500 hover:from-amber-500 hover:via-orange-600 hover:to-rose-600 text-white font-bold px-8 py-4 rounded-2xl shadow-xl hover:shadow-2xl transition-all text-lg hover:scale-105 active:scale-[0.99]"
           >
             <span
               className="animate-shimmer absolute inset-0 w-1/3 bg-white/20 blur-sm"
@@ -60,17 +60,96 @@ export default function Home() {
             />
             <span className="relative">Get Started →</span>
           </Link>
-        </div>
 
-        {/* Tagline strip */}
-        <div className="mt-8 flex items-center justify-center gap-6 text-lg font-semibold text-gray-500">
-          <span>Makers</span>
-          <span className="text-amber-300">·</span>
-          <span>Entrepreneurs</span>
-          <span className="text-amber-300">·</span>
-          <span>Creators</span>
+          {/* Link to machine page */}
+          <div className="mt-6">
+            <Link
+              href="/machine"
+              className="inline-flex items-center gap-2 text-amber-600 hover:text-amber-700 font-semibold text-base transition-all group hover:gap-3"
+            >
+              <span>Want to see the machine? We made it whimsical!</span>
+              <span className="text-xl group-hover:animate-bounce">✨</span>
+            </Link>
+          </div>
         </div>
       </main>
+
+      {/* Audience Cards */}
+      <div className="pb-24">
+        <div className="max-w-4xl mx-auto px-6">
+          <p className="text-center text-sm uppercase tracking-widest text-gray-400 mb-8">
+            Built For
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="bg-white rounded-2xl border-2 border-gray-300 p-6 text-center shadow-sm hover:shadow-md hover:border-amber-300 transition-all">
+              <div className="text-3xl mb-3">🛠️</div>
+              <h3 className="font-bold text-gray-900 text-lg">Makers</h3>
+              <p className="text-sm text-gray-600 mt-2">Build the right thing, not everything</p>
+            </div>
+            <div className="bg-white rounded-2xl border-2 border-gray-300 p-6 text-center shadow-sm hover:shadow-md hover:border-amber-300 transition-all">
+              <div className="text-3xl mb-3">🚀</div>
+              <h3 className="font-bold text-gray-900 text-lg">Entrepreneurs</h3>
+              <p className="text-sm text-gray-600 mt-2">Validate ideas before you build</p>
+            </div>
+            <div className="bg-white rounded-2xl border-2 border-gray-300 p-6 text-center shadow-sm hover:shadow-md hover:border-amber-300 transition-all">
+              <div className="text-3xl mb-3">🎨</div>
+              <h3 className="font-bold text-gray-900 text-lg">Creators</h3>
+              <p className="text-sm text-gray-600 mt-2">Focus your creative energy</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* How It Works */}
+      <div className="py-24 bg-white border-t-2 border-gray-300">
+        <div className="max-w-5xl mx-auto px-6">
+          <h2 className="text-3xl font-bold text-gray-900 text-center mb-16">
+            Three steps to clarity
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+            {[
+              {
+                step: "1",
+                title: "Add Your Ideas",
+                desc: "List all your project ideas with passion levels and goals",
+              },
+              {
+                step: "2",
+                title: "AI Research",
+                desc: "Claude analyzes demand, competitors, costs, and timeline",
+              },
+              {
+                step: "3",
+                title: "See Winners",
+                desc: "Bubble chart shows high-value, low-effort projects instantly",
+              },
+            ].map(({ step, title, desc }) => (
+              <div key={step} className="text-center">
+                <div className="w-16 h-16 rounded-full bg-amber-50 border-2 border-amber-300 flex items-center justify-center mx-auto mb-4">
+                  <span className="text-2xl font-bold text-amber-600">{step}</span>
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">{title}</h3>
+                <p className="text-gray-600">{desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Footer */}
+      <footer className="py-12 bg-white border-t-2 border-gray-300">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+            <div className="text-center md:text-left">
+              <p className="font-bold text-gray-900 mb-1">Sooper Dooper Project Prioritizer</p>
+              <p className="text-sm text-gray-600">Built in 72 hours for AI Hackathon</p>
+            </div>
+            <div className="text-sm text-gray-600">
+              <p>Next.js · TypeScript · Tailwind · Supabase · Claude Code · Cursor · Antigravity · AI Studio · Gemini</p>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }

@@ -38,7 +38,7 @@ const CustomTooltip = ({ active, payload }: any) => {
   const d = payload[0].payload as BubbleDataPoint;
   const color = passionColor(d.passion_level);
   return (
-    <div className="rounded-2xl border border-gray-200 bg-white/95 backdrop-blur-sm px-4 py-3.5 shadow-xl shadow-gray-200/60 min-w-[200px]">
+    <div className="rounded-2xl border-2 border-gray-300 bg-white/95 backdrop-blur-sm px-4 py-3.5 shadow-xl shadow-gray-300/60 min-w-[200px] relative z-[9999]" style={{ isolation: "isolate" }}>
       <div className="flex items-center gap-2 mb-3">
         <span className="w-2.5 h-2.5 rounded-full flex-none" style={{ backgroundColor: color }} />
         <p className="font-bold text-gray-900 text-sm line-clamp-2">{d.name}</p>
@@ -204,7 +204,7 @@ export default function BubbleChart({ data, winnerId }: { data: BubbleDataPoint[
 
   return (
     <div
-      className="w-full rounded-2xl border border-gray-200 bg-white p-4 relative shadow-sm overflow-visible"
+      className="w-full rounded-2xl border-2 border-gray-300 bg-white p-4 relative shadow-sm overflow-visible"
       style={{
         backgroundImage:
           "linear-gradient(rgba(245,166,35,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(245,166,35,0.04) 1px, transparent 1px)",
@@ -215,34 +215,26 @@ export default function BubbleChart({ data, winnerId }: { data: BubbleDataPoint[
       {/* Quadrant labels with backgrounds - Deb's names! */}
       <div className="absolute inset-0 pointer-events-none select-none z-10" aria-hidden>
         {/* Top-left: The Dream */}
-        <div className="absolute top-8 left-16 px-3 py-1.5 rounded-lg bg-emerald-50/80 backdrop-blur-sm border border-emerald-200/50">
-          <p className="text-[10px] font-black uppercase tracking-[0.15em] text-emerald-600">
-            The Dream
-          </p>
+        <div className="absolute top-8 left-16 w-32 h-16 flex flex-col items-center justify-center rounded-lg bg-emerald-50/80 backdrop-blur-sm border-2 border-emerald-300/60">
+          <p className="text-[10px] font-black uppercase tracking-[0.15em] text-emerald-600">The Dream</p>
           <p className="text-[8px] text-emerald-500/70 mt-0.5">High value, low effort</p>
         </div>
 
         {/* Top-right: The Commitment */}
-        <div className="absolute top-8 right-16 px-3 py-1.5 rounded-lg bg-amber-50/80 backdrop-blur-sm border border-amber-200/50 text-right">
-          <p className="text-[10px] font-black uppercase tracking-[0.15em] text-amber-600">
-            The Commitment
-          </p>
+        <div className="absolute top-8 right-16 w-32 h-16 flex flex-col items-center justify-center rounded-lg bg-amber-50/80 backdrop-blur-sm border-2 border-amber-300/60">
+          <p className="text-[10px] font-black uppercase tracking-[0.15em] text-amber-600">The Commitment</p>
           <p className="text-[8px] text-amber-500/70 mt-0.5">High value, high effort</p>
         </div>
 
         {/* Bottom-left: The Distraction */}
-        <div className="absolute bottom-20 left-16 px-3 py-1.5 rounded-lg bg-gray-50/80 backdrop-blur-sm border border-gray-200/50">
-          <p className="text-[10px] font-black uppercase tracking-[0.15em] text-gray-500">
-            The Distraction
-          </p>
+        <div className="absolute bottom-20 left-16 w-32 h-16 flex flex-col items-center justify-center rounded-lg bg-gray-50/80 backdrop-blur-sm border-2 border-gray-400/60">
+          <p className="text-[10px] font-black uppercase tracking-[0.15em] text-gray-500">The Distraction</p>
           <p className="text-[8px] text-gray-400/70 mt-0.5">Low value, low effort</p>
         </div>
 
         {/* Bottom-right: The Trap */}
-        <div className="absolute bottom-20 right-16 px-3 py-1.5 rounded-lg bg-rose-50/80 backdrop-blur-sm border border-rose-200/50 text-right">
-          <p className="text-[10px] font-black uppercase tracking-[0.15em] text-rose-600">
-            The Trap
-          </p>
+        <div className="absolute bottom-20 right-16 w-32 h-16 flex flex-col items-center justify-center rounded-lg bg-rose-50/80 backdrop-blur-sm border-2 border-rose-300/60">
+          <p className="text-[10px] font-black uppercase tracking-[0.15em] text-rose-600">The Trap</p>
           <p className="text-[8px] text-rose-500/70 mt-0.5">Low value, high effort</p>
         </div>
       </div>
@@ -256,8 +248,8 @@ export default function BubbleChart({ data, winnerId }: { data: BubbleDataPoint[
           <ReferenceArea x1={5} x2={10} y1={0} y2={5}  fill="rgba(239,68,68,0.04)"  strokeOpacity={0} />
 
           {/* Quadrant dividers */}
-          <ReferenceLine x={5} stroke="rgba(0,0,0,0.12)" strokeDasharray="6 4" />
-          <ReferenceLine y={5} stroke="rgba(0,0,0,0.12)" strokeDasharray="6 4" />
+          <ReferenceLine x={5} stroke="rgba(0,0,0,0.15)" strokeWidth={1.5} strokeDasharray="6 4" />
+          <ReferenceLine y={5} stroke="rgba(0,0,0,0.15)" strokeWidth={1.5} strokeDasharray="6 4" />
 
           <CartesianGrid stroke="rgba(0,0,0,0.06)" strokeDasharray="3 3" />
 
@@ -267,15 +259,15 @@ export default function BubbleChart({ data, winnerId }: { data: BubbleDataPoint[
             domain={[0, 10]}
             tickCount={6}
             tick={{ fill: "rgba(0,0,0,0.4)", fontSize: 11, fontWeight: 500, fontFamily: "monospace" }}
-            axisLine={{ stroke: "rgba(0,0,0,0.12)" }}
-            tickLine={{ stroke: "rgba(0,0,0,0.12)" }}
+            axisLine={{ stroke: "rgba(0,0,0,0.15)", strokeWidth: 1.5 }}
+            tickLine={{ stroke: "rgba(0,0,0,0.15)", strokeWidth: 1.5 }}
           >
             <Label
               value="Effort →"
               position="insideBottom"
               offset={-14}
               fill="rgba(0,0,0,0.5)"
-              fontSize={12}
+              fontSize={18}
               fontWeight={600}
               fontFamily="system-ui"
             />
@@ -288,16 +280,16 @@ export default function BubbleChart({ data, winnerId }: { data: BubbleDataPoint[
             tickCount={6}
             width={40}
             tick={{ fill: "rgba(0,0,0,0.4)", fontSize: 11, fontWeight: 500, fontFamily: "monospace" }}
-            axisLine={{ stroke: "rgba(0,0,0,0.12)" }}
-            tickLine={{ stroke: "rgba(0,0,0,0.12)" }}
+            axisLine={{ stroke: "rgba(0,0,0,0.15)", strokeWidth: 1.5 }}
+            tickLine={{ stroke: "rgba(0,0,0,0.15)", strokeWidth: 1.5 }}
           >
             <Label
               value="Value ↑"
-              angle={-90}
-              position="insideLeft"
+              angle={0}
+              position="top"
               offset={18}
               fill="rgba(0,0,0,0.5)"
-              fontSize={12}
+              fontSize={18}
               fontWeight={600}
               fontFamily="system-ui"
             />

@@ -47,10 +47,10 @@ const ALIGNMENTS: Array<{ value: ProjectFormData["goal_alignment"]; label: strin
 
 function FieldLabel({ children, optional }: { children: React.ReactNode; optional?: boolean }) {
   return (
-    <label className="block text-xs font-bold uppercase tracking-widest text-muted mb-2">
+    <label className="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">
       {children}
       {optional && (
-        <span className="ml-2 text-xs normal-case font-normal tracking-normal text-rim">
+        <span className="ml-2 text-xs normal-case font-normal tracking-normal text-gray-400">
           optional
         </span>
       )}
@@ -63,9 +63,9 @@ function FieldWrap({ children }: { children: React.ReactNode }) {
 }
 
 const inputBase =
-  "w-full rounded-xl border border-rim bg-ink/60 px-4 py-3 text-cream placeholder-muted/50 " +
-  "focus:border-amber focus:outline-none focus:ring-2 focus:ring-amber/20 transition-all duration-200 " +
-  "hover:border-muted/60";
+  "w-full rounded-xl border-2 border-gray-300 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 " +
+  "focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400/20 transition-all duration-200 " +
+  "hover:border-gray-400";
 
 export default function ProjectForm({
   onSubmit,
@@ -121,7 +121,7 @@ export default function ProjectForm({
 
       {/* ── Project Name ─────────────────────────── */}
       <FieldWrap>
-        <FieldLabel>Project Name <span className="text-rose ml-0.5">*</span></FieldLabel>
+        <FieldLabel>Project Name <span className="text-rose-500 ml-0.5">*</span></FieldLabel>
         <input
           type="text"
           required
@@ -134,7 +134,7 @@ export default function ProjectForm({
 
       {/* ── Description ──────────────────────────── */}
       <FieldWrap>
-        <FieldLabel>Description <span className="text-rose ml-0.5">*</span></FieldLabel>
+        <FieldLabel>Description <span className="text-rose-500 ml-0.5">*</span></FieldLabel>
         <textarea
           required
           value={form.description}
@@ -148,7 +148,7 @@ export default function ProjectForm({
       {/* ── Passion Level ────────────────────────── */}
       <FieldWrap>
         <FieldLabel>Passion Level</FieldLabel>
-        <div className="rounded-xl border border-rim bg-ink/60 p-5">
+        <div className="rounded-xl border-2 border-gray-300 bg-gray-50 p-5">
           <div className="flex items-start justify-between mb-5">
             <div>
               <span
@@ -157,7 +157,7 @@ export default function ProjectForm({
               >
                 {form.passion_level}
               </span>
-              <span className="text-muted font-mono text-sm">/10</span>
+              <span className="text-gray-400 font-mono text-sm">/10</span>
             </div>
             <div className="text-right">
               <div className="text-3xl leading-none mb-1">{passion.emoji}</div>
@@ -178,10 +178,10 @@ export default function ProjectForm({
             onChange={(e) => set("passion_level", Number(e.target.value))}
             className="sdp-slider"
             style={{
-              background: `linear-gradient(to right, ${passion.color} ${passionPct}%, #222650 ${passionPct}%)`,
+              background: `linear-gradient(to right, ${passion.color} ${passionPct}%, #E5E7EB ${passionPct}%)`,
             }}
           />
-          <div className="flex justify-between mt-2 text-xs text-muted font-mono">
+          <div className="flex justify-between mt-2 text-xs text-gray-400 font-mono">
             <span>1 — meh</span>
             <span>10 — obsessed</span>
           </div>
@@ -200,10 +200,10 @@ export default function ProjectForm({
                 type="button"
                 onClick={() => set("goal_alignment", value)}
                 className={[
-                  "rounded-xl border px-3 py-3 text-left transition-all duration-200",
+                  "rounded-xl border-2 px-3 py-3 text-left transition-all duration-200",
                   active
-                    ? "border-amber bg-amber/10 text-amber"
-                    : "border-rim bg-ink/40 text-muted hover:border-muted/60 hover:text-cream",
+                    ? "border-amber-400 bg-amber-50 text-amber-700"
+                    : "border-gray-300 bg-white text-gray-500 hover:border-gray-400 hover:text-gray-700",
                 ].join(" ")}
               >
                 <div className="font-bold text-sm">{label}</div>
@@ -229,12 +229,12 @@ export default function ProjectForm({
           <button
             type="button"
             onClick={addTag}
-            className="rounded-xl border border-rim bg-card px-4 py-3 text-sm font-semibold text-cream hover:border-amber hover:text-amber transition-all duration-200"
+            className="rounded-xl border-2 border-gray-300 bg-white px-4 py-3 text-sm font-semibold text-gray-700 hover:border-amber-400 hover:text-amber-600 transition-all duration-200"
           >
             Add
           </button>
         </div>
-        <p className="text-xs text-muted">Press Enter or comma to add</p>
+        <p className="text-xs text-gray-400">Press Enter or comma to add</p>
 
         {form.learning_goals.length > 0 && (
           <div className="flex flex-wrap gap-2 pt-1">
@@ -242,8 +242,8 @@ export default function ProjectForm({
               <span
                 key={tag}
                 className={[
-                  "inline-flex items-center gap-1.5 rounded-lg border border-glow/30 bg-glow/10",
-                  "px-3 py-1.5 text-sm font-medium text-glow",
+                  "inline-flex items-center gap-1.5 rounded-lg border border-indigo-300 bg-indigo-50",
+                  "px-3 py-1.5 text-sm font-medium text-indigo-600",
                   newTags.has(tag) ? "animate-tag-pop" : "",
                 ].join(" ")}
               >
@@ -251,7 +251,7 @@ export default function ProjectForm({
                 <button
                   type="button"
                   onClick={() => removeTag(tag)}
-                  className="text-glow/50 hover:text-rose transition-colors leading-none"
+                  className="text-indigo-400 hover:text-rose-500 transition-colors leading-none"
                   aria-label={`Remove ${tag}`}
                 >
                   ×
@@ -275,11 +275,11 @@ export default function ProjectForm({
       </FieldWrap>
 
       {/* ── Already Started? ─────────────────────── */}
-      <div className="rounded-xl border border-rim bg-ink/40 p-5 space-y-4">
+      <div className="rounded-xl border-2 border-gray-300 bg-gray-50 p-5 space-y-4">
         <label className="flex items-center justify-between cursor-pointer select-none">
           <div>
-            <div className="font-semibold text-cream">Already started?</div>
-            <div className="text-xs text-muted mt-0.5">Track your current progress</div>
+            <div className="font-semibold text-gray-900">Already started?</div>
+            <div className="text-xs text-gray-500 mt-0.5">Track your current progress</div>
           </div>
 
           {/* Toggle */}
@@ -290,23 +290,23 @@ export default function ProjectForm({
               onChange={(e) => set("is_started", e.target.checked)}
               className="sr-only peer"
             />
-            <div className="w-12 h-6 rounded-full bg-rim peer-checked:bg-amber transition-colors duration-200" />
-            <div className="absolute top-1 left-1 w-4 h-4 rounded-full bg-muted shadow transition-all duration-200 peer-checked:translate-x-6 peer-checked:bg-ink" />
+            <div className="w-12 h-6 rounded-full bg-gray-300 peer-checked:bg-amber-400 transition-colors duration-200" />
+            <div className="absolute top-1 left-1 w-4 h-4 rounded-full bg-white shadow transition-all duration-200 peer-checked:translate-x-6" />
           </div>
         </label>
 
         {form.is_started && (
-          <div className="space-y-5 pt-2 border-t border-rim">
+          <div className="space-y-5 pt-2 border-t border-gray-200">
             {/* Completion % */}
             <FieldWrap>
               <FieldLabel>Completion</FieldLabel>
-              <div className="rounded-xl border border-rim bg-ink/60 p-4">
+              <div className="rounded-xl border-2 border-gray-300 bg-white p-4">
                 <div className="flex items-baseline gap-1 mb-4">
-                  <span className="font-mono text-3xl font-bold text-glow">
+                  <span className="font-mono text-3xl font-bold text-indigo-500">
                     {form.completion_percentage}
                   </span>
-                  <span className="text-muted font-mono text-sm">%</span>
-                  <span className="text-xs text-muted ml-2">done</span>
+                  <span className="text-gray-400 font-mono text-sm">%</span>
+                  <span className="text-xs text-gray-400 ml-2">done</span>
                 </div>
                 <input
                   type="range"
@@ -316,16 +316,15 @@ export default function ProjectForm({
                   onChange={(e) => set("completion_percentage", Number(e.target.value))}
                   className="sdp-slider sdp-slider-rose"
                   style={{
-                    background: `linear-gradient(to right, #818CF8 ${completionPct}%, #222650 ${completionPct}%)`,
+                    background: `linear-gradient(to right, #818CF8 ${completionPct}%, #E5E7EB ${completionPct}%)`,
                   }}
                 />
-                <div className="flex justify-between mt-2 text-xs text-muted font-mono">
+                <div className="flex justify-between mt-2 text-xs text-gray-400 font-mono">
                   <span>0%</span>
                   <span>100%</span>
                 </div>
               </div>
             </FieldWrap>
-
           </div>
         )}
       </div>
@@ -336,7 +335,7 @@ export default function ProjectForm({
         disabled={submitting}
         className={[
           "relative w-full overflow-hidden rounded-xl px-6 py-4",
-          "bg-gradient-to-r from-amber to-rose",
+          "bg-gradient-to-r from-amber-400 to-rose-500",
           "font-bold text-base text-white tracking-wide",
           "transition-all duration-200",
           "hover:shadow-[0_0_32px_rgba(245,166,35,0.35)] hover:scale-[1.01]",
