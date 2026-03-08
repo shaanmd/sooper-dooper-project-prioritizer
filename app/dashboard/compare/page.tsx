@@ -41,7 +41,7 @@ type RiskTolerance = "Low" | "Medium" | "High";
 const DEFAULTS = {
   profitSlider: 50,
   riskTolerance: "Medium" as RiskTolerance,
-  passionThreshold: 5,
+  passionThreshold: 1,
 };
 
 function passionColor(level: number): string {

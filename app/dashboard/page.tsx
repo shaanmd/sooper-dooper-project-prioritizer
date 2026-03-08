@@ -137,6 +137,7 @@ export default function DashboardPage() {
       ) : projects.length === 0 ? (
         <EmptyState />
       ) : (
+        <div className="pb-24 lg:pb-0">
         <ul className="space-y-4">
           {projects.map((project, i) => {
             const color = passionColor(project.passion_level);
@@ -218,6 +219,19 @@ export default function DashboardPage() {
             );
           })}
         </ul>
+        </div>
+      )}
+
+      {/* Sticky Compare button — mobile only */}
+      {!loading && projects.length > 0 && (
+        <div className="fixed bottom-0 left-0 right-0 p-4 bg-white border-t-2 border-gray-300 lg:hidden z-50">
+          <Link
+            href="/dashboard/compare"
+            className="block w-full text-center bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-bold py-3 px-6 rounded-xl shadow-lg transition-all"
+          >
+            📊 Compare All Projects
+          </Link>
+        </div>
       )}
     </div>
   );
