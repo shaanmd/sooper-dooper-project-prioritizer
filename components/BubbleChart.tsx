@@ -141,7 +141,7 @@ export default function BubbleChart({ data, winnerId }: { data: BubbleDataPoint[
               width={r * 1.7}
               height={12}
               rx={6}
-              fill="rgba(0,0,0,0.15)"
+              fill="rgba(0,0,0,0.45)"
             />
             {/* Text */}
             <text
@@ -203,112 +203,122 @@ export default function BubbleChart({ data, winnerId }: { data: BubbleDataPoint[
   };
 
   return (
-    <div
-      className="w-full rounded-2xl border-2 border-gray-300 bg-white p-4 relative shadow-sm overflow-visible"
-      style={{
-        backgroundImage:
-          "linear-gradient(rgba(245,166,35,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(245,166,35,0.04) 1px, transparent 1px)",
-        backgroundSize: "40px 40px",
-      }}
-    >
-
-      {/* Quadrant labels with backgrounds - Deb's names! */}
-      <div className="absolute inset-0 pointer-events-none select-none z-10" aria-hidden>
-        {/* Top-left: The Dream */}
-        <div className="absolute top-8 left-16 w-32 h-16 flex flex-col items-center justify-center rounded-lg bg-emerald-50/80 backdrop-blur-sm border-2 border-emerald-300/60">
-          <p className="text-[10px] font-black uppercase tracking-[0.15em] text-emerald-600">The Dream</p>
-          <p className="text-[8px] text-emerald-500/70 mt-0.5">High value, low effort</p>
-        </div>
-
-        {/* Top-right: The Commitment */}
-        <div className="absolute top-8 right-16 w-32 h-16 flex flex-col items-center justify-center rounded-lg bg-amber-50/80 backdrop-blur-sm border-2 border-amber-300/60">
-          <p className="text-[10px] font-black uppercase tracking-[0.15em] text-amber-600">The Commitment</p>
-          <p className="text-[8px] text-amber-500/70 mt-0.5">High value, high effort</p>
-        </div>
-
-        {/* Bottom-left: The Distraction */}
-        <div className="absolute bottom-20 left-16 w-32 h-16 flex flex-col items-center justify-center rounded-lg bg-gray-50/80 backdrop-blur-sm border-2 border-gray-400/60">
-          <p className="text-[10px] font-black uppercase tracking-[0.15em] text-gray-500">The Distraction</p>
-          <p className="text-[8px] text-gray-400/70 mt-0.5">Low value, low effort</p>
-        </div>
-
-        {/* Bottom-right: The Trap */}
-        <div className="absolute bottom-20 right-16 w-32 h-16 flex flex-col items-center justify-center rounded-lg bg-rose-50/80 backdrop-blur-sm border-2 border-rose-300/60">
-          <p className="text-[10px] font-black uppercase tracking-[0.15em] text-rose-600">The Trap</p>
-          <p className="text-[8px] text-rose-500/70 mt-0.5">Low value, high effort</p>
-        </div>
+    <div className="space-y-3">
+      {/* Mobile Scroll Hint */}
+      <div className="md:hidden px-4 py-2 bg-amber-50 border-2 border-amber-200 rounded-lg text-center">
+        <p className="text-xs text-amber-700 font-semibold">← Swipe to see full chart →</p>
       </div>
 
-      <ResponsiveContainer width="100%" height={480}>
-        <ScatterChart margin={{ top: 30, right: 50, bottom: 50, left: 10 }}>
-          {/* Quadrant shading */}
-          <ReferenceArea x1={0} x2={5} y1={5} y2={10} fill="rgba(16,185,129,0.05)"  strokeOpacity={0} />
-          <ReferenceArea x1={5} x2={10} y1={5} y2={10} fill="rgba(245,158,11,0.05)" strokeOpacity={0} />
-          <ReferenceArea x1={0} x2={5} y1={0} y2={5}  fill="rgba(156,163,175,0.03)" strokeOpacity={0} />
-          <ReferenceArea x1={5} x2={10} y1={0} y2={5}  fill="rgba(239,68,68,0.04)"  strokeOpacity={0} />
+      {/* Chart Container */}
+      <div
+        className="w-full overflow-x-auto rounded-2xl border-2 border-gray-300 bg-white p-3 md:p-4 relative shadow-sm"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(245,166,35,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(245,166,35,0.04) 1px, transparent 1px)",
+          backgroundSize: "40px 40px",
+        }}
+      >
+        <div className="min-w-[600px] h-[480px] relative">
 
-          {/* Quadrant dividers */}
-          <ReferenceLine x={5} stroke="rgba(0,0,0,0.15)" strokeWidth={1.5} strokeDasharray="6 4" />
-          <ReferenceLine y={5} stroke="rgba(0,0,0,0.15)" strokeWidth={1.5} strokeDasharray="6 4" />
+          {/* Quadrant labels with backgrounds - Deb's names! */}
+          <div className="absolute inset-0 pointer-events-none select-none z-10" aria-hidden>
+            {/* Top-left: The Dream */}
+            <div className="absolute top-8 left-16 w-24 h-12 md:w-32 md:h-16 flex flex-col items-center justify-center rounded-lg bg-emerald-50/80 backdrop-blur-sm border-2 border-emerald-300/60">
+              <p className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.15em] text-emerald-600">The Dream</p>
+              <p className="text-[7px] md:text-[8px] text-emerald-500/70 mt-0.5">High value, low effort</p>
+            </div>
 
-          <CartesianGrid stroke="rgba(0,0,0,0.06)" strokeDasharray="3 3" />
+            {/* Top-right: The Commitment */}
+            <div className="absolute top-8 right-16 w-24 h-12 md:w-32 md:h-16 flex flex-col items-center justify-center rounded-lg bg-amber-50/80 backdrop-blur-sm border-2 border-amber-300/60">
+              <p className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.15em] text-amber-600">The Commitment</p>
+              <p className="text-[7px] md:text-[8px] text-amber-500/70 mt-0.5">High value, high effort</p>
+            </div>
 
-          <XAxis
-            type="number"
-            dataKey="effort_score"
-            domain={[0, 10]}
-            tickCount={6}
-            tick={{ fill: "rgba(0,0,0,0.4)", fontSize: 11, fontWeight: 500, fontFamily: "monospace" }}
-            axisLine={{ stroke: "rgba(0,0,0,0.15)", strokeWidth: 1.5 }}
-            tickLine={{ stroke: "rgba(0,0,0,0.15)", strokeWidth: 1.5 }}
-          >
-            <Label
-              value="Effort →"
-              position="insideBottom"
-              offset={-14}
-              fill="rgba(0,0,0,0.5)"
-              fontSize={18}
-              fontWeight={600}
-              fontFamily="system-ui"
-            />
-          </XAxis>
+            {/* Bottom-left: The Distraction */}
+            <div className="absolute bottom-20 left-16 w-24 h-12 md:w-32 md:h-16 flex flex-col items-center justify-center rounded-lg bg-gray-50/80 backdrop-blur-sm border-2 border-gray-400/60">
+              <p className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.15em] text-gray-500">The Distraction</p>
+              <p className="text-[7px] md:text-[8px] text-gray-400/70 mt-0.5">Low value, low effort</p>
+            </div>
 
-          <YAxis
-            type="number"
-            dataKey="value_score"
-            domain={[0, 10]}
-            tickCount={6}
-            width={40}
-            tick={{ fill: "rgba(0,0,0,0.4)", fontSize: 11, fontWeight: 500, fontFamily: "monospace" }}
-            axisLine={{ stroke: "rgba(0,0,0,0.15)", strokeWidth: 1.5 }}
-            tickLine={{ stroke: "rgba(0,0,0,0.15)", strokeWidth: 1.5 }}
-          >
-            <Label
-              value="Value ↑"
-              angle={0}
-              position="top"
-              offset={18}
-              fill="rgba(0,0,0,0.5)"
-              fontSize={18}
-              fontWeight={600}
-              fontFamily="system-ui"
-            />
-          </YAxis>
+            {/* Bottom-right: The Trap */}
+            <div className="absolute bottom-20 right-16 w-24 h-12 md:w-32 md:h-16 flex flex-col items-center justify-center rounded-lg bg-rose-50/80 backdrop-blur-sm border-2 border-rose-300/60">
+              <p className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.15em] text-rose-600">The Trap</p>
+              <p className="text-[7px] md:text-[8px] text-rose-500/70 mt-0.5">Low value, high effort</p>
+            </div>
+          </div>
 
-          <Tooltip
-            content={<CustomTooltip />}
-            cursor={{ strokeDasharray: "3 3", stroke: "rgba(0,0,0,0.08)" }}
-          />
+          <ResponsiveContainer width="100%" height="100%">
+            <ScatterChart margin={{ top: 30, right: 50, bottom: 50, left: 10 }}>
+              {/* Quadrant shading */}
+              <ReferenceArea x1={0} x2={5} y1={5} y2={10} fill="rgba(16,185,129,0.05)"  strokeOpacity={0} />
+              <ReferenceArea x1={5} x2={10} y1={5} y2={10} fill="rgba(245,158,11,0.05)" strokeOpacity={0} />
+              <ReferenceArea x1={0} x2={5} y1={0} y2={5}  fill="rgba(156,163,175,0.03)" strokeOpacity={0} />
+              <ReferenceArea x1={5} x2={10} y1={0} y2={5}  fill="rgba(239,68,68,0.04)"  strokeOpacity={0} />
 
-          <Scatter
-            data={data}
-            shape={renderBubble}
-            isAnimationActive={true}
-            animationDuration={600}
-            animationEasing="ease-out"
-          />
-        </ScatterChart>
-      </ResponsiveContainer>
+              {/* Quadrant dividers */}
+              <ReferenceLine x={5} stroke="rgba(0,0,0,0.15)" strokeWidth={1.5} strokeDasharray="6 4" />
+              <ReferenceLine y={5} stroke="rgba(0,0,0,0.15)" strokeWidth={1.5} strokeDasharray="6 4" />
+
+              <CartesianGrid stroke="rgba(0,0,0,0.06)" strokeDasharray="3 3" />
+
+              <XAxis
+                type="number"
+                dataKey="effort_score"
+                domain={[0, 10]}
+                tickCount={6}
+                tick={{ fill: "rgba(0,0,0,0.4)", fontSize: 11, fontWeight: 500, fontFamily: "monospace" }}
+                axisLine={{ stroke: "rgba(0,0,0,0.15)", strokeWidth: 1.5 }}
+                tickLine={{ stroke: "rgba(0,0,0,0.15)", strokeWidth: 1.5 }}
+              >
+                <Label
+                  value="Effort →"
+                  position="insideBottom"
+                  offset={-14}
+                  fill="rgba(0,0,0,0.5)"
+                  fontSize={18}
+                  fontWeight={600}
+                  fontFamily="system-ui"
+                />
+              </XAxis>
+
+              <YAxis
+                type="number"
+                dataKey="value_score"
+                domain={[0, 10]}
+                tickCount={6}
+                width={40}
+                tick={{ fill: "rgba(0,0,0,0.4)", fontSize: 11, fontWeight: 500, fontFamily: "monospace" }}
+                axisLine={{ stroke: "rgba(0,0,0,0.15)", strokeWidth: 1.5 }}
+                tickLine={{ stroke: "rgba(0,0,0,0.15)", strokeWidth: 1.5 }}
+              >
+                <Label
+                  value="Value ↑"
+                  angle={0}
+                  position="top"
+                  offset={18}
+                  fill="rgba(0,0,0,0.5)"
+                  fontSize={18}
+                  fontWeight={600}
+                  fontFamily="system-ui"
+                />
+              </YAxis>
+
+              <Tooltip
+                content={<CustomTooltip />}
+                cursor={{ strokeDasharray: "3 3", stroke: "rgba(0,0,0,0.08)" }}
+              />
+
+              <Scatter
+                data={data}
+                shape={renderBubble}
+                isAnimationActive={true}
+                animationDuration={600}
+                animationEasing="ease-out"
+              />
+            </ScatterChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
     </div>
   );
 }
