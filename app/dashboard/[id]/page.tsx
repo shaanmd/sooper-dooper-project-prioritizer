@@ -122,7 +122,7 @@ function ResearchPanel({ research }: { research: AIResearch }) {
       </div>
 
       {/* Competitors */}
-      {research.competitors.length > 0 && (
+      {research.competitors?.length > 0 && (
         <div className="rounded-xl border border-rim bg-card p-5 space-y-3">
           <p className="text-xs font-bold uppercase tracking-widest text-muted">Competitors</p>
           <ul className="divide-y divide-rim">
@@ -148,7 +148,7 @@ function ResearchPanel({ research }: { research: AIResearch }) {
       )}
 
       {/* Skills */}
-      {research.skills_required.length > 0 && (
+      {research.skills_required?.length > 0 && (
         <div className="rounded-xl border border-rim bg-card p-5 space-y-3">
           <p className="text-xs font-bold uppercase tracking-widest text-muted">Skills Required</p>
           <div className="flex flex-wrap gap-2">

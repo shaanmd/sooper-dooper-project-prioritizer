@@ -57,7 +57,7 @@ const CustomTooltip = ({ active, payload }: any) => {
   );
 };
 
-export default function BubbleChart({ data }: { data: BubbleDataPoint[] }) {
+export default function BubbleChart({ data, winnerId }: { data: BubbleDataPoint[]; winnerId?: string }) {
   const router = useRouter();
   const maxProfit = Math.max(...data.map((d) => Math.max(0, d.net_profit)), 1);
 
@@ -66,12 +66,24 @@ export default function BubbleChart({ data }: { data: BubbleDataPoint[] }) {
     const r = 14 + 30 * Math.sqrt(Math.max(0, payload.net_profit) / maxProfit);
     const color = passionColor(payload.passion_level);
     const shortName = payload.name.length > 12 ? payload.name.slice(0, 12) + "…" : payload.name;
+    const isWinner = payload.id === winnerId;
 
     return (
       <g
         onClick={() => router.push(`/dashboard/${payload.id}`)}
         style={{ cursor: "pointer" }}
       >
+        {/* Winner ring */}
+        {isWinner && (
+          <circle
+            cx={cx} cy={cy} r={r + 9}
+            fill="none"
+            stroke="#F5A623"
+            strokeWidth={1.5}
+            strokeDasharray="5 3"
+            strokeOpacity={0.75}
+          />
+        )}
         {/* Glow halo */}
         <circle cx={cx} cy={cy} r={r + 6} fill={color} fillOpacity={0.1} />
         {/* Main bubble */}
@@ -79,8 +91,8 @@ export default function BubbleChart({ data }: { data: BubbleDataPoint[] }) {
           cx={cx} cy={cy} r={r}
           fill={color}
           fillOpacity={0.88}
-          stroke="rgba(255,255,255,0.18)"
-          strokeWidth={1.5}
+          stroke={isWinner ? "rgba(245,166,35,0.5)" : "rgba(255,255,255,0.18)"}
+          strokeWidth={isWinner ? 2 : 1.5}
         />
         {/* Label inside bubble */}
         {r >= 22 && (
@@ -95,6 +107,17 @@ export default function BubbleChart({ data }: { data: BubbleDataPoint[] }) {
             style={{ pointerEvents: "none", userSelect: "none" }}
           >
             {shortName}
+          </text>
+        )}
+        {/* Winner trophy */}
+        {isWinner && (
+          <text
+            x={cx} y={cy - r - 12}
+            textAnchor="middle"
+            fontSize={14}
+            style={{ pointerEvents: "none", userSelect: "none" }}
+          >
+            🏆
           </text>
         )}
       </g>
