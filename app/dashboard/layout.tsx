@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Footer from "@/components/Footer";
 
 export default function DashboardLayout({
   children,
@@ -38,6 +39,7 @@ export default function DashboardLayout({
       </nav>
 
       <main className="mx-auto max-w-5xl px-6 py-10">{children}</main>
+      <Footer />
     </div>
   );
 }

@@ -1,5 +1,7 @@
 "use client";
 
+import Footer from "@/components/Footer";
+
 export default function MachineLanding() {
   return (
     <div 
@@ -175,6 +177,8 @@ export default function MachineLanding() {
           </a>
         </div>
       </div>
+
+      <Footer />
 
       {/* Custom Animations */}
       <style jsx>{`
