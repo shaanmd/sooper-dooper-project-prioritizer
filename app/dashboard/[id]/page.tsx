@@ -11,7 +11,7 @@ interface Project {
   name: string;
   description: string;
   passion_level: number;
-  goal_alignment: "high" | "medium" | "low";
+  goal_alignment: "low" | "medium" | "high";
   learning_goals: string[];
   constraints: string;
   is_started: boolean;
