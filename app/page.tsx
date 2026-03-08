@@ -150,7 +150,7 @@ export default function Home() {
                 Dr Deb Prattley &amp; Dr Shaan Mocke
               </h3>
               <p className="text-sm text-gray-600">
-                Veterinarians who learned to code · Built in 72 hours
+                Veterinarians who learned to code · Built in 48 hours
               </p>
             </div>
 
