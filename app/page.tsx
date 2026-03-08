@@ -164,7 +164,7 @@ export default function Home() {
               </p>
               <p className="text-xs text-gray-500 leading-relaxed">
                 Next.js · TypeScript · Tailwind · Supabase<br />
-                Claude Code · Cursor · Antigravity · AI Studio · Gemini
+                Claude Code · Gemini 3 · Cursor · Antigravity · AI Studio · Coffee
               </p>
             </div>
 
