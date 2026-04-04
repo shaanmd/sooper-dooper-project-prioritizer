@@ -63,7 +63,7 @@ export async function POST(request: Request) {
 
   // Fetch project from Supabase
   const { data: project, error: fetchError } = await supabase
-    .from("projects")
+    .from("sdpp_projects")
     .select("*")
     .eq("id", projectId)
     .single();

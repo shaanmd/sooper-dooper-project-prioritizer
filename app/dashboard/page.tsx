@@ -94,7 +94,7 @@ export default function DashboardPage() {
 
   useEffect(() => {
     supabase
-      .from("projects")
+      .from("sdpp_projects")
       .select("id, name, description, passion_level, goal_alignment, is_started, completion_percentage, created_at")
       .order("created_at", { ascending: false })
       .then(({ data }) => {
@@ -106,7 +106,7 @@ export default function DashboardPage() {
   async function handleDelete(id: string) {
     if (!confirm("Delete this project? This cannot be undone.")) return;
     setDeletingId(id);
-    await supabase.from("projects").delete().eq("id", id);
+    await supabase.from("sdpp_projects").delete().eq("id", id);
     setProjects((prev) => prev.filter((p) => p.id !== id));
     setDeletingId(null);
   }

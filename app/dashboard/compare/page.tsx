@@ -119,7 +119,7 @@ export default function ComparePage() {
     async function load() {
       const [{ data: projects }, { data: research }] = await Promise.all([
         supabase
-          .from("projects")
+          .from("sdpp_projects")
           .select("id, name, passion_level, goal_alignment, learning_goals")
           .order("created_at", { ascending: false }),
         supabase

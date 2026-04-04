@@ -178,7 +178,7 @@ export default function ProjectDetailPage() {
 
   useEffect(() => {
     supabase
-      .from("projects")
+      .from("sdpp_projects")
       .select("*")
       .eq("id", id)
       .single()
